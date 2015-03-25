@@ -12,5 +12,8 @@
 
 public class Tester
 {
-	//this is a test to see if the upload works and creates a branch in GitHub
+	public static void main(String[] args)
+	{
+		System.out.println("Hello world!");
+	}
 }
