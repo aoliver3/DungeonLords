@@ -37,7 +37,7 @@ public class Monster
 		if(health<=0)
 		{
 			die();
-		}
+			return 0;		}
 		else return health;
 	}
 	
@@ -45,5 +45,6 @@ public class Monster
 	{
 		Attack act = attackList.get(i);
 		System.out.println(name+ " uses " + act.getName() + ", " + act.getDescription());
+		return act.getDamage();
 	}
 }

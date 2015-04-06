@@ -10,11 +10,11 @@ public class Room
 	ArrayList<Room> exits;
 	boolean bonfire;
 
-	public Room(String name, Monster roomMonster, Puzzle roomPuzzle, String description, ArrayList<Room> exits, boolean bonfire) 
+	public Room(String name, String description, ArrayList<Room> exits, boolean bonfire) 
 	{
 		this.name = name;
-		this.roomMonster = roomMonster;
-		this.roomPuzzle = roomPuzzle;
+		this.roomMonster = null;
+		this.roomPuzzle = null;
 		this.description = description;
 		this.exits = exits;
 		this.bonfire = bonfire;
@@ -45,5 +45,14 @@ public class Room
 	{
 		bonfire = false;
 	}
+	
+	public void spawnMonster(Monster m)
+	{
+		this.roomMonster = m;
+	}
 
+	public void spawnPuzzle(Puzzle p)
+	{
+		this.roomPuzzle=p;
+	}
 }
