@@ -31,7 +31,7 @@ public abstract class Item
 	 */
 	public String getName() 
 	{
-		return name;
+		return this.name;
 	}
 
 	/**
@@ -39,7 +39,7 @@ public abstract class Item
 	 */
 	public String getDescription() 
 	{
-		return description;
+		return this.description;
 	}
 
 	/**

@@ -56,7 +56,7 @@ public class Weapon extends Item
 	@Override
 	public String toString()
 	{
-		return "Weapon [damage=" + damage + "]";
+		return "Weapon" + "[name=" + getName() + "]" + "[damage=" + damage + "]" + "[description=" + getDescription() + "]";
 	}
 
 	/* (non-Javadoc)

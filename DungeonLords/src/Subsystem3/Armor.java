@@ -1,7 +1,9 @@
+package Subsystem3;
 /**
  * 
  */
-package Subsystem3;
+
+
 
 /**
  * @author aharr_000
@@ -56,7 +58,7 @@ public class Armor extends Item
 	@Override
 	public String toString()
 	{
-		return "Armor [bonusHP=" + bonusHP + "]";
+		return "Armor" + "[name=" + getName() + "]" + "[bonusHP=" + bonusHP + "]" + "[description=" + getDescription() + "]";
 	}
 
 	/* (non-Javadoc)

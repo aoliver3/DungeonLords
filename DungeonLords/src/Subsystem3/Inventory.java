@@ -30,10 +30,18 @@ public class Inventory
 		this.bag = bag;
 	}
 	
+	public Inventory()
+	{
+		this.weaponSlot = null;
+		this.armorSlot = null;
+		this.shieldSlot = null;
+		bag = new ArrayList<Item>();
+	}
+	
 	public void dropItem (Item i)
 	{
 		bag.remove(i);
-		System.out.println("You have dropped" + i.getName());
+		System.out.println("You have dropped " + i.getName());
 	}
 	
 
@@ -213,25 +221,25 @@ public class Inventory
 	/**
 	 * @param weaponSlot the weaponSlot to set
 	 */
-	public static void setWeaponSlot(Weapon weaponSlot)
+	public void setWeaponSlot(Weapon weaponSlot)
 	{
-		weaponSlot = weaponSlot;
+		this.weaponSlot = weaponSlot;
 	}
 
 	/**
 	 * @param armorSlot the armorSlot to set
 	 */
-	public static void setArmorSlot(Armor armorSlot)
+	public void setArmorSlot(Armor armorSlot)
 	{
-		armorSlot = armorSlot;
+		this.armorSlot = armorSlot;
 	}
 
 	/**
 	 * @param shieldSlot the shieldSlot to set
 	 */
-	public static void setShieldSlot(Shield shieldSlot)
+	public void setShieldSlot(Shield shieldSlot)
 	{
-		shieldSlot = shieldSlot;
+		this.shieldSlot = shieldSlot;
 	}
 
 	/**
