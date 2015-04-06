@@ -13,4 +13,26 @@ public class Attack
 		this.cooldown = cooldown;
 		this.description = description;
 	}
+
+	public String getName() 
+	{
+		return name;
+	}
+
+	public int getDamage() 
+	{
+		return damage;
+	}
+
+	public int getCooldown() 
+	{
+		return cooldown;
+	}
+
+	public String getDescription() 
+	{
+		return description;
+	}
+	
+	
 }

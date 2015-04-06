@@ -20,4 +20,30 @@ public class Monster
 		this.loot = loot;
 		this.attackList = attackList;
 	}
+	
+	public boolean isDefeated()
+	{
+		return defeated;
+	}
+	
+	public void die()
+	{
+		defeated=false;
+	}
+	
+	public int takeDamage(int dmg)
+	{
+		health= health-dmg;
+		if(health<=0)
+		{
+			die();
+		}
+		else return health;
+	}
+	
+	public int attack(int i)
+	{
+		Attack act = attackList.get(i);
+		System.out.println(name+ " uses " + act.getName() + ", " + act.getDescription());
+	}
 }

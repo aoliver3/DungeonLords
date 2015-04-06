@@ -20,6 +20,30 @@ public class Room
 		this.bonfire = bonfire;
 	}
 
-
+	public void enter()
+	{
+		if(roomMonster!=null && !roomMonster.isDefeated())
+		{
+			//start Battle
+		}
+		if(roomPuzzle!=null && !roomPuzzle.isSolved())
+		{
+			//start puzzle
+		}
+		else
+		{
+			System.out.println(description);
+		}
+	}
+	
+	public boolean hasBonfire()
+	{
+		return bonfire;
+	}
+	
+	public void useBonfire()
+	{
+		bonfire = false;
+	}
 
 }
