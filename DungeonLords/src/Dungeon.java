@@ -29,9 +29,19 @@ public class Dungeon
 		return user;
 	}
 
+	public void setUser(Player user)
+	{
+		this.user = user;
+	}
+
 	public ArrayList<Room> getDungeon()
 	{
 		return Dungeon;
+	}
+
+	public void setDungeon(ArrayList<Room> dungeon)
+	{
+		Dungeon = dungeon;
 	}
 
 }

@@ -37,14 +37,24 @@ public class Game
 		
 	}
 	
+	//check for = monster
 	public void attack()
 	{
 		
 	}
 	
+	//check for bonfire in Room
 	public void rest()
 	{
-		
+		if (gameDungeon.getUser().getCurrentRoom().hasBonfire() = true)
+		{
+			gameDungeon.getUser().setCurrentHealth(gameDungeon.getUser().getMaxHealth());
+			gameDungeon.getUser().getCurrentRoom().useBonfire();
+		}
+		else
+		{
+			System.out.println("You can not rest without a bonfire present.");
+		}
 	}
 	
 	public void pickUp()
@@ -54,7 +64,7 @@ public class Game
 	
 	public void equip()
 	{
-		
+		if (gameDungeon.getUser().get)
 	}
 	
 	public void use()

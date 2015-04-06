@@ -13,7 +13,8 @@
 public class Player
 {
 	private String playerName;
-	private int playerHealth;
+	private int currentHealth;
+	private int maxHealth:
 	private int playerMana;
 	private int playaerDamage;
 	private Inventory playerInventory;
@@ -23,7 +24,8 @@ public class Player
 	{
 		super();
 		this.playerName = playerName;
-		this.playerHealth = 150;
+		this.currentHealth = 150;
+		this.maxHealth = 150;
 		this.playerMana = 100;
 		this.playaerDamage = 0;
 		this.playerInventory = playerInventory;
@@ -34,15 +36,10 @@ public class Player
 	{
 		return playerName;
 	}
-
-	public int getPlayerHealth()
+	
+	public void setPlayerName(String playerName)
 	{
-		return playerHealth;
-	}
-
-	public void setPlayerHealth(int playerHealth)
-	{
-		this.playerHealth = playerHealth;
+		this.playerName = playerName;
 	}
 
 	public int getPlayerMana()
@@ -69,13 +66,35 @@ public class Player
 	{
 		return playerInventory;
 	}
-	
-	/**
-	 * sets the newly created players current location to the Entrance Room
-	 */
-	public void setStartingRoom()
+
+	public Room getCurrentRoom()
 	{
-		
+		return currentRoom;
+	}
+
+	public void setCurrentRoom(Room currentRoom)
+	{
+		this.currentRoom = currentRoom;
+	}
+
+	public int getCurrentHealth()
+	{
+		return currentHealth;
+	}
+
+	public void setCurrentHealth(int currentHealth)
+	{
+		this.currentHealth = currentHealth;
+	}
+
+	public int getMaxHealth()
+	{
+		return maxHealth;
+	}
+
+	public void setMaxHealth(int maxHealth)
+	{
+		this.maxHealth = maxHealth;
 	}
 	
 }
