@@ -30,11 +30,6 @@ public class Armor extends Item
 		this.bonusHP = bonusHP;
 	}
 	
-	public void equipArmor (Armor a)
-	{
-		Inventory.equipItem(a);
-		System.out.println("You have just equipped " + a.getName() );
-	}
 
 	/**
 	 * @return the bonusHP

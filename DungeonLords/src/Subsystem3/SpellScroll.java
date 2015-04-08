@@ -28,12 +28,6 @@ public class SpellScroll extends Item
 		this.attribute = attribute;
 	}
 	
-	
-	// Not sure if we will need this method or not
-	public void useSpell (SpellScroll sp)
-	{
-		
-	}
 
 	/**
 	 * @return the manaCost

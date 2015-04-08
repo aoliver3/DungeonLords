@@ -33,11 +33,6 @@ public class Shield extends Item
 		this.reflectDmg = reflectDmg;
 	}
 	
-	public void equipShield (Shield s)
-	{
-		Inventory.equipItem(s);
-	}
-
 	/**
 	 * @return the flatBlock
 	 */

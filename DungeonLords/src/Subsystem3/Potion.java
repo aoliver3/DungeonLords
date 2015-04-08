@@ -31,15 +31,6 @@ public class Potion extends Item
 		this.healthRegen = healthRegen;
 	}
 
-	public void usePotion (Potion p)
-	{
-		int health = p.getHealthRegen();
-		int mana = p.getManaRegen();
-		
-		System.out.println("You have regained " + health + " health points and " + mana + " mana points ");
-		
-		// need to add health and mana to user's hp and mana
-	}
 
 	/**
 	 * @return the manaRegen

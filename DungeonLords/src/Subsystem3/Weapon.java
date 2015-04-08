@@ -29,10 +29,6 @@ public class Weapon extends Item
 		// TODO Auto-generated constructor stub
 	}
 	
-	public void equipWeapon (Weapon w)
-	{
-		Inventory.equipItem(w);
-	}
 
 	/**
 	 * @return the damage

@@ -49,28 +49,28 @@ public class Inventory
 	
 	public void useItem (Item i)
 	{
-		if (i instanceof Potion && i.getName()=="Health Potion");
+		if (i instanceof Potion && i.getName().equalsIgnoreCase("Health Potion"));
 		{
 			Player.setHealth(health + 75);
 			System.out.println("You have just used a Health Potion, your health is now " + Player.getHealth());
 			bag.remove(i);
 		}
 		
-		if (i instanceof Potion && i.getName()=="Mana Potion");
+		if (i instanceof Potion && i.getName().equalsIgnoreCase("Mana Potion"));
 		{
 			Player.setMana(mana + 75);
 			System.out.println("You have just used a Mana Potion, your mana is now " + Player.getMana());
 			bag.remove(i);
 		}
 		
-		if (i instanceof Potion && i.getName()=="Potion of Solidarity");
+		if (i instanceof Potion && i.getName().equalsIgnoreCase("Potion of Solidarity"));
 		{
 			// freeze enemy for two turns
 			System.out.println("You have just used the Potion of Solidarity, this monster cannot attack for 2 turns");
 			bag.remove(i);
 		}
 		
-		if (i instanceof Potion && i.getName()=="Berserk Potion");
+		if (i instanceof Potion && i.getName().equalsIgnoreCase("Berserk Potion"));
 		{
 			//multiply user's damage by 25% for 3 turns, can only be used in combat
 			Player.setDamage(damage * 0.25);
@@ -78,7 +78,7 @@ public class Inventory
 			bag.remove(i);
 		}
 		
-		if (i instanceof SpellScroll && i.getName()=="Acid Cloud");
+		if (i instanceof SpellScroll && i.getName().equalsIgnoreCase("Acid Cloud"));
 		{
 			Player.setMana(mana - 20);
 			// 20 mana. Does 0 damage to the target on cast, but inflicts the target wit 
@@ -87,7 +87,7 @@ public class Inventory
 			bag.remove(i);
 		}
 		
-		if (i instanceof SpellScroll && i.getName()=="Sonic Boom");
+		if (i instanceof SpellScroll && i.getName().equalsIgnoreCase("Sonic Boom"));
 		{
 			Player.setMana(mana - 20);
 			//Does 12 damage to target on cast, but stuns them, leaving them
@@ -96,7 +96,7 @@ public class Inventory
 			bag.remove(i);
 		}
 		
-		if (i instanceof SpellScroll && i.getName()=="Flood");
+		if (i instanceof SpellScroll && i.getName().equalsIgnoreCase("Flood"));
 		{
 			Player.setMana(mana - 50);
 			
@@ -106,7 +106,7 @@ public class Inventory
 			bag.remove(i);
 		}
 		
-		if (i instanceof SpellScroll && i.getName()=="Spark");
+		if (i instanceof SpellScroll && i.getName().equalsIgnoreCase("Spark"));
 		{
 			Player.setMana(mana - 10);
 			// Lights up a dark room used for a puzzle
@@ -114,7 +114,7 @@ public class Inventory
 			bag.remove(i);
 		}
 		
-		if (i instanceof SpellScroll && i.getName()=="Fodder");
+		if (i instanceof SpellScroll && i.getName().equalsIgnoreCase("Fodder"));
 		{
 			Player.setMana(mana - 20);
 			// Summons a rain of magical arrows, dealing 15 damage. Always hits first
@@ -123,7 +123,7 @@ public class Inventory
 			bag.remove(i);
 		}
 		
-		if (i instanceof SpellScroll && i.getName()=="Fireball");
+		if (i instanceof SpellScroll && i.getName().equalsIgnoreCase("Fireball"));
 		{
 			Player.setMana(mana - 20);
 			// Throws a fireball at a target, dealing 18 damage. Start with this spell
@@ -134,21 +134,21 @@ public class Inventory
 	
 	//the equipItem method equips an item from the users bag/inventory and sets it in the current equipped slot.
 	
-	public static void equipItem (Item i)
+	public void equipItem (Item i)
 	{
 		if (i instanceof Weapon)
 		{
-			Inventory.setWeaponSlot((Weapon) i);
+			setWeaponSlot((Weapon) i);
 		}
 		
 		if (i instanceof Armor)
 		{
-			Inventory.setArmorSlot((Armor) i);
+			setArmorSlot((Armor) i);
 		}
 		
 		if (i instanceof Shield)
 		{
-			Inventory.setShieldSlot((Shield) i);
+			setShieldSlot((Shield) i);
 		}
 		
 	}
