@@ -30,6 +30,13 @@ public class Inventory
 		this.bag = bag;
 	}
 	
+	public Inventory()
+	{
+		
+	}
+
+
+
 	public void dropItem (Item i)
 	{
 		bag.remove(i);
@@ -44,7 +51,7 @@ public class Inventory
 		if (i instanceof Potion && i.getName()=="Health Potion");
 		{
 			Player.setHealth(health + 75);
-			System.out.println("You have just used a Health Potion, your health is now " + Player.getHealth());
+			System.out.println("You have just used a Health Potion, your health is now " + Player.getCurrentHealth());
 			bag.remove(i);
 		}
 		
@@ -126,7 +133,7 @@ public class Inventory
 	
 	//the equipItem method equips an item from the users bag/inventory and sets it in the current equipped slot.
 	
-	public static void equipItem (Item i)
+	public void equipItem (Item i)
 	{
 		if (i instanceof Weapon)
 		{
@@ -310,6 +317,7 @@ public class Inventory
 			return false;
 		return true;
 	}
+	
 	
 	
 	
