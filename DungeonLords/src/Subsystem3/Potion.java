@@ -1,11 +1,14 @@
-/**
- * 
- */
+
 package Subsystem3;
 
-/**
- * @author aharr_000
- *
+/**Class: Potion
+ * @author Aaron Harris
+ * @version 1.0
+ * Course: Software Development I Spring 2015
+ * 
+ * This class creates Potions to be used by the Player in the game DungeonLords 
+ * 
+ * Purpose: The purpose of this class is to create potion objects that can be used by players
  */
 public class Potion extends Item
 {
@@ -16,13 +19,15 @@ public class Potion extends Item
 	private int healthRegen;
 	
 	//Constructors & Methods
-	
-	public Potion(String name, String description, int limit, int quantity)
-	{
-		super(name, description, limit, quantity);
-	}
-
-
+	/**
+	 * Constructs potion object
+	 * @param name - name of the potion
+	 * @param description - description of the potion
+	 * @param limit - maximum amount of potions this user can have
+	 * @param quantity - number of potions with the same name
+	 * @param manaRegen - the amount of mana that this potion restores to the player
+	 * @param healthRegen - the amount of health that this potion restores to the player
+	 */
 	public Potion(String name, String description, int limit, int quantity,
 			int manaRegen, int healthRegen)
 	{

@@ -1,11 +1,14 @@
-/**
- * 
- */
+
 package Subsystem3;
 
-/**
- * @author aharr_000
- *
+/**Class: SpellScroll
+ * @author Aaron Harris
+ * @version 1.0
+ * Course: Software Development I Spring 2015
+ * 
+ * This class creates SpellScrolls to be used by the Player in the game DungeonLords 
+ * 
+ * Purpose: The purpose of this class is to create SpellScroll objects that can be used by players
  */
 public class Weapon extends Item
 {
@@ -16,19 +19,21 @@ public class Weapon extends Item
 	
 	//Constructors & Methods
 	
+	
+	/**
+	 * Constructs a weapon object
+	 * @param name - name of the weapon
+	 * @param description - description of the weapon
+	 * @param limit - maximum amount of the weapon the user can have at one time
+	 * @param quantity - how many of this particular weapon
+	 * @param damage - the amount of damage this weapons deals to monsters
+	 */
 	public Weapon(String name, String description, int limit, int quantity,
 			int damage)
 	{
 		super(name, description, limit, quantity);
 		this.damage = damage;
 	}
-
-	public Weapon(String name, String description, int limit, int quantity)
-	{
-		super(name, description, limit, quantity);
-		// TODO Auto-generated constructor stub
-	}
-	
 
 	/**
 	 * @return the damage

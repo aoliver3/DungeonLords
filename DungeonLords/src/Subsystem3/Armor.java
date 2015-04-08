@@ -1,13 +1,13 @@
 package Subsystem3;
-/**
+
+/**Class: Armor
+ * @author Aaron Harris
+ * @version 1.0
+ * Course: Software Development I Spring 2015
  * 
- */
-
-
-
-/**
- * @author aharr_000
- *
+ * This class creates Armor objects for users to be used in the game DungeonLords and stored in the user's inventory
+ * 
+ * Purpose: The purpose of this class is to create armor that can be used in game by the player.
  */
 public class Armor extends Item
 {
@@ -16,12 +16,14 @@ public class Armor extends Item
 	private int bonusHP;
 	
 	//Constructors & Methods
-
-	public Armor(String name, String description, int limit, int quantity)
-	{
-		super(name, description, limit, quantity);
-		// TODO Auto-generated constructor stub
-	}
+	/**
+	 * Constructs an Armor object
+	 * @param name - name of the armor object
+	 * @param description - description of the armor object
+	 * @param limit - the maxmimum amount a user can hold of this item
+	 * @param quantity - how many armor objects the user has with the same name
+	 * @param bonusHP - the amount of bonus health points the user gains from equipping this armor
+	 */
 
 	public Armor(String name, String description, int limit, int quantity,
 			int bonusHP)

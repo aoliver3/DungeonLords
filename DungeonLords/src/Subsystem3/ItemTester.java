@@ -1,14 +1,17 @@
-/**
- * 
- */
+
 package Subsystem3;
 
 import java.util.ArrayList;
 
-/**
- * @author aharr_000
- * This class is testing the armor class for DungeonLords
- *
+/**Class: ItemTester
+ * @author Aaron Harris
+ * @version 1.0
+ * Course: Software Development I Spring 2015
+ * 
+ * This class tests all the Item classes (Potion, Armor, Shield, SpellScroll, Weapon) by creating an object of each
+ * and calling methods from the Inventory class.
+ * 
+ * Purpose: To make sure that the item classes are working correctly
  */
 public class ItemTester
 {

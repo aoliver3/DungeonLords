@@ -1,11 +1,14 @@
-/**
- * 
- */
+
 package Subsystem3;
 
-/**
- * @author aharr_000
- *
+/**Class: Shield
+ * @author Aaron Harris
+ * @version 1.0
+ * Course: Software Development I Spring 2015
+ * 
+ * This class creates Shields to be used by the Player in the game DungeonLords 
+ * 
+ * Purpose: The purpose of this class is to create Shield objects that can be used by players
  */
 public class Shield extends Item
 {
@@ -18,11 +21,16 @@ public class Shield extends Item
 
 	//Constructors & Methods
 	
-	public Shield(String name, String description, int limit, int quantity)
-	{
-		super(name, description, limit, quantity);
-		// TODO Auto-generated constructor stub
-	}
+	/**
+	 * Constructs a Shield object
+	 * @param name - name of the shield
+	 * @param description - description of the shield
+	 * @param limit - max amount of this particular shield the user can have at one time
+	 * @param quantity - how many of this particular shield the user has in their inventory
+	 * @param flatBlock - amount of damage to be absorbed by this shield
+	 * @param percentBlock - the percentage of time that this shield will block an attack
+	 * @param reflectDmg - amount of damage this shield reflects
+	 */
 
 	public Shield(String name, String description, int limit, int quantity,
 			int flatBlock, int percentBlock, int reflectDmg)

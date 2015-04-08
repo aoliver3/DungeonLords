@@ -1,18 +1,19 @@
-/**
- * 
- */
+
 package Subsystem3;
 
 import java.util.ArrayList;
 
-/**Aaron Harris
- * April 1 2015
- * @author aharr_000
- *
+/**Class: Inventory
+ * @author Aaron Harris
+ * @version 1.0
+ * Course: Software Development I Spring 2015
+ * 
+ * This class creates an inventory object for each player in the game DungeonLords
+ * 
+ * Purpose: The purpose of this class is to store items the user obtains during their progress of DungeonLords
  */
 public class Inventory
 {
-	
 	// Instance Variables
 	private Weapon weaponSlot;
 	private Armor armorSlot;
@@ -20,6 +21,14 @@ public class Inventory
 	private ArrayList<Item> bag;
 	
 	// Constructors & Methods
+	
+	/**
+	 * Constructs an Inventory object
+	 * @param weaponSlot - current weapon equipped used by the user
+	 * @param armorSlot - current armor equipped by the user
+	 * @param shieldSlot - current shield equipped by the user
+	 * @param bag - items currently not being used by the user
+	 */
 	public Inventory(Weapon weaponSlot, Armor armorSlot, Shield shieldSlot,
 			ArrayList<Item> bag)
 	{
@@ -30,6 +39,9 @@ public class Inventory
 		this.bag = bag;
 	}
 	
+	/**
+	 * Constructs an Inventory object
+	 */
 	public Inventory()
 	{
 		this.weaponSlot = null;
@@ -38,6 +50,10 @@ public class Inventory
 		bag = new ArrayList<Item>();
 	}
 	
+	/**
+	 * dropItem - this method removes an item from the player's inventory
+	 * @param i - item to be removed
+	 */
 	public void dropItem (Item i)
 	{
 		bag.remove(i);
@@ -45,7 +61,10 @@ public class Inventory
 	}
 	
 
-	// useItem method is only for potions & spellScrolls. Each potion and spell all do different things
+	/**
+	 * useItem - this method is for spells & potions only. Each potion/spell does different things depending on which one the player wants to use
+	 * @param i - the item the user wants to use
+	 */
 	
 	public void useItem (Item i)
 	{
@@ -132,7 +151,10 @@ public class Inventory
 		}
 	}
 	
-	//the equipItem method equips an item from the users bag/inventory and sets it in the current equipped slot.
+	/**
+	 * equipItem - this method equips an item from a players bag to a players current item slot depending on what type of item it is.
+	 * @param i - the item to be equipped
+	 */
 	
 	public void equipItem (Item i)
 	{
@@ -153,7 +175,10 @@ public class Inventory
 		
 	}
 	
-	//checks to see if the user's inventory is full. 12 is the max amount of slots
+	/**
+	 * inventoryFull - checks to see if the user's inventory is full
+	 * @return true if the user has 12 or more items
+	 */
 	
 	public boolean inventoryFull()
 	{
@@ -167,8 +192,11 @@ public class Inventory
 		
 	}
 	
-	//this method adds an item to the user's inventory. The user can pick up items or will receive them automatically from defeating a monster/puzzle
-	
+
+	/**
+	 * addItem - adds an item to the user's inventory
+	 * @param i - the item to be added
+	 */
 	public void addItem (Item i)
 	{
 		

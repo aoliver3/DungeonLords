@@ -1,11 +1,14 @@
-/**
- * 
- */
+
 package Subsystem3;
 
-/**
- * @author aharr_000
- *
+/**Class: Item
+ * @author Aaron Harris
+ * @version 1.0
+ * Course: Software Development I Spring 2015
+ * 
+ * This class is the parent class for all the items in the game DungeonLords. Items include: Armor, Potions, Shields, SpellScrolls and Weapons
+ * 
+ * Purpose: The purpose of this class is to create items for the game DungeonLords
  */
 public abstract class Item 
 {
