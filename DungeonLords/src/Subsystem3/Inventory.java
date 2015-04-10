@@ -317,4 +317,5 @@ public class Inventory
 			return false;
 		return true;
 	}
+}
 
