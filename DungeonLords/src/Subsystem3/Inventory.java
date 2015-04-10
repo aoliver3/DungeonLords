@@ -12,13 +12,13 @@ import java.util.ArrayList;
  */
 public class Inventory
 {
-	
+
 	// Instance Variables
 	private Weapon weaponSlot;
 	private Armor armorSlot;
 	private Shield shieldSlot;
 	private ArrayList<Item> bag;
-	
+
 	// Constructors & Methods
 	public Inventory(Weapon weaponSlot, Armor armorSlot, Shield shieldSlot,
 			ArrayList<Item> bag)
@@ -29,10 +29,10 @@ public class Inventory
 		this.shieldSlot = shieldSlot;
 		this.bag = bag;
 	}
-	
+
 	public Inventory()
 	{
-		
+
 	}
 
 
@@ -42,10 +42,10 @@ public class Inventory
 		bag.remove(i);
 		System.out.println("You have dropped" + i.getName());
 	}
-	
+
 
 	// useItem method is only for potions & spellScrolls. Each potion and spell all do different things
-	
+
 	public void useItem (Item i)
 	{
 		if (i instanceof Potion && i.getName()=="Health Potion");
@@ -54,21 +54,21 @@ public class Inventory
 			System.out.println("You have just used a Health Potion, your health is now " + Player.getCurrentHealth());
 			bag.remove(i);
 		}
-		
+
 		if (i instanceof Potion && i.getName()=="Mana Potion");
 		{
 			Player.setMana(mana + 75);
 			System.out.println("You have just used a Mana Potion, your mana is now " + Player.getMana());
 			bag.remove(i);
 		}
-		
+
 		if (i instanceof Potion && i.getName()=="Potion of Solidarity");
 		{
 			// freeze enemy for two turns
 			System.out.println("You have just used the Potion of Solidarity, this monster cannot attack for 2 turns");
 			bag.remove(i);
 		}
-		
+
 		if (i instanceof Potion && i.getName()=="Berserk Potion");
 		{
 			//multiply user's damage by 25% for 3 turns, can only be used in combat
@@ -76,7 +76,7 @@ public class Inventory
 			System.out.println("You have just used a Bersek Potion, your damage will be multipled by 25% for 3 turns");
 			bag.remove(i);
 		}
-		
+
 		if (i instanceof SpellScroll && i.getName()=="Acid Cloud");
 		{
 			Player.setMana(mana - 20);
@@ -85,7 +85,7 @@ public class Inventory
 			System.out.println("You have just used the Acid Cloud spell, this monster will lose 8 health points per turn for 3 turns");
 			bag.remove(i);
 		}
-		
+
 		if (i instanceof SpellScroll && i.getName()=="Sonic Boom");
 		{
 			Player.setMana(mana - 20);
@@ -94,17 +94,17 @@ public class Inventory
 			System.out.println("You have just used the Sonic Boom spell, this monster has lost 12 health points and is unable to attack on their next move");
 			bag.remove(i);
 		}
-		
+
 		if (i instanceof SpellScroll && i.getName()=="Flood");
 		{
 			Player.setMana(mana - 50);
-			
+
 			//Instantly kills whatever enemy is in the room, excluding bosses, to whom
 			//it simply does a heavy 40 damage.
 			System.out.println("You have used the Flood spell, this monster is now dead");
 			bag.remove(i);
 		}
-		
+
 		if (i instanceof SpellScroll && i.getName()=="Spark");
 		{
 			Player.setMana(mana - 10);
@@ -112,7 +112,7 @@ public class Inventory
 			System.out.println("You have used the Spark spell, you can now see in this room");
 			bag.remove(i);
 		}
-		
+
 		if (i instanceof SpellScroll && i.getName()=="Fodder");
 		{
 			Player.setMana(mana - 20);
@@ -121,7 +121,7 @@ public class Inventory
 			System.out.println("You have used the Fodder spell, this monster has lost 15 health points");
 			bag.remove(i);
 		}
-		
+
 		if (i instanceof SpellScroll && i.getName()=="Fireball");
 		{
 			Player.setMana(mana - 20);
@@ -130,30 +130,30 @@ public class Inventory
 			bag.remove(i);
 		}
 	}
-	
+
 	//the equipItem method equips an item from the users bag/inventory and sets it in the current equipped slot.
-	
+
 	public void equipItem (Item i)
 	{
 		if (i instanceof Weapon)
 		{
 			Inventory.setWeaponSlot((Weapon) i);
 		}
-		
+
 		if (i instanceof Armor)
 		{
 			Inventory.setArmorSlot((Armor) i);
 		}
-		
+
 		if (i instanceof Shield)
 		{
 			Inventory.setShieldSlot((Shield) i);
 		}
-		
+
 	}
-	
+
 	//checks to see if the user's inventory is full. 12 is the max amount of slots
-	
+
 	public boolean inventoryFull()
 	{
 		if (bag.size()==12)
@@ -161,25 +161,25 @@ public class Inventory
 			return true;
 		}
 		else
-			
-		return false;
-		
+
+			return false;
+
 	}
-	
+
 	//this method adds an item to the user's inventory. The user can pick up items or will receive them automatically from defeating a monster/puzzle
-	
+
 	public void addItem (Item i)
 	{
-		
+
 		// check to see if inventory is full before adding item
 		if (inventoryFull()==false)
 		{
 			bag.add(i);
 			System.out.println("You have added a " + i.getName() + " to your inventory ");
 		}
-		
+
 		else
-			
+
 		{
 			System.out.println("Your inventory is full, you must drop an item before adding another");
 		}
@@ -317,8 +317,16 @@ public class Inventory
 			return false;
 		return true;
 	}
-	
-	
-	
-	
+
+
+	public Item contains(String it)
+	{
+		for (Item i: bag)
+		{
+			if (i.getName().equalsIgnoreCase(it))
+				return i;
+		}
+		return null;
+	}
+
 }
