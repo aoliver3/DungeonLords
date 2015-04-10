@@ -56,6 +56,7 @@ public class ItemTester
 		
 		System.out.println(i.getBag());
 
+		System.out.println(i.inventoryFull());
 
 	}
 
