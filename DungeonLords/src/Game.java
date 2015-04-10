@@ -19,24 +19,40 @@ import Subsystem3.SpellScroll;
 
 public class Game
 {
-	private Dungeon gameDungeon;
+	private Dungeon gameDungeon;  //the player and his dungeon
 
+	/**
+	 * constructor method to create a new game class
+	 * @param gameDungeon dungeon containing player and rooms
+	 */
 	public Game(Dungeon gameDungeon)
 	{
 		super();
 		this.gameDungeon = gameDungeon;
 	}
 
+	/**
+	 * method to access the game dungeon object
+	 * @return
+	 */
 	public Dungeon getGameDungeon()
 	{
 		return gameDungeon;
 	}
 
+	/**
+	 * method to set the game dungeon object
+	 * @param gameDungeon
+	 */
 	public void setGameDungeon(Dungeon gameDungeon)
 	{
 		this.gameDungeon = gameDungeon;
 	}
 
+	/**
+	 * method to save the current players progress in the dungeon
+	 * @throws IOException input/output exception
+	 */
 	public void saveGame() throws IOException
 	{
 		File savedPlayers = new File("SavedPlayers");
@@ -51,6 +67,11 @@ public class Game
 		}
 	}
 
+	/**
+	 * method to load a saved players previous game
+	 * @throws IOException input/output exception
+	 * @throws ClassNotFoundException class not found exception
+	 */
 	public void loadGame() throws IOException, ClassNotFoundException
 	{
 		File savedPlayers = new File("SavedPlayers");
@@ -65,6 +86,9 @@ public class Game
 		}
 	}
 
+	/**
+	 * method to display the description of the players current room
+	 */
 	public void look()
 	{
 		System.out.println(gameDungeon.getUser().getCurrentRoom().getDescription());
@@ -82,6 +106,11 @@ public class Game
 		//monsters health - player damage
 	}
 
+	/**
+	 * method to allow a player to check for a bonfire in their current room.
+	 * if a bonfire is present then this method will set the players current
+	 * health to their maximum health value
+	 */
 	public void rest()
 	{
 		if (gameDungeon.getUser().getCurrentRoom().hasBonfire() == true)
@@ -95,11 +124,22 @@ public class Game
 		}
 	}
 
+	/**
+	 * method to allow a player to put an item in their inventory should
+	 * they meet the puzzle solved or monster defeated requirements and
+	 * said monster or puzzle contains a reward
+	 */
 	public void pickUp()
 	{
 		gameDungeon.getUser().getPlayerInventory().addItem(gameDungeon.getUser().getCurrentRoom().getReward());
 	}
 
+	/**
+	 * method that will check if the player has the required item in their
+	 * inventory. if they do then they will equip this item and gain its
+	 * equipped attributes
+	 * @param it
+	 */
 	public void equip(String it)
 	{
 		ArrayList<Item> bag = gameDungeon.getUser().getPlayerInventory().getBag();
@@ -137,6 +177,13 @@ public class Game
 	{
 
 	}
+	
+	/**
+	 * method that will determine if the players inventory contains
+	 * the required item and if it does then it will use that item
+	 * in the correct manner
+	 * @param i item object
+	 */
 	public void use(Item i)
 	{
 		Player p = gameDungeon.getUser();
@@ -164,7 +211,7 @@ public class Game
 		if (i instanceof Potion && i.getName()=="Berserk Potion");
 		{
 			//multiply user's damage by 25% for 3 turns, can only be used in combat
-			p.setPlayaerDamage(p.getPlayaerDamage() * 0.25);
+			p.setPlayaerDamage((int)(p.getPlayaerDamage() * 1.25));
 			System.out.println("You have just used a Bersek Potion, your damage will be multipled by 25% for 3 turns");
 			p.getPlayerInventory().dropItem(i);
 		}
