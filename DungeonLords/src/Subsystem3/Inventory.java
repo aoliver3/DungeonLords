@@ -318,15 +318,3 @@ public class Inventory
 		return true;
 	}
 
-
-	public Item contains(String it)
-	{
-		for (Item i: bag)
-		{
-			if (i.getName().equalsIgnoreCase(it))
-				return i;
-		}
-		return null;
-	}
-
-}

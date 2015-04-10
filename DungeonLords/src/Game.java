@@ -1,7 +1,6 @@
 import java.io.*;
 import java.util.ArrayList;
 
-import Subsystem3.Inventory;
 import Subsystem3.Item;
 import Subsystem3.Potion;
 import Subsystem3.SpellScroll;
@@ -103,15 +102,20 @@ public class Game
 
 	public void equip(String it)
 	{
-		Inventory inv = gameDungeon.getUser().getPlayerInventory();
-
-		if (inv.contains(it) != null)
+		ArrayList<Item> bag = gameDungeon.getUser().getPlayerInventory().getBag();
+		
+		for (Item i: bag)
 		{
-			gameDungeon.getUser().getPlayerInventory().equipItem(inv.contains(it));
-			System.out.println("You have equiped the " + it);
+			if (i.getName().equalsIgnoreCase(it))
+			{
+				gameDungeon.getUser().getPlayerInventory().equipItem(i);
+				System.out.println("You have equiped the " + i.getName());
+			}
+			
 		}
-		else
-			System.out.println("Your inventory does not contain that item");
+		
+		
+		//if (gameDungeon.getUser().getPlayerInventory().bag.contains((Item) i))
 	}
 
 	public void flee()
@@ -160,7 +164,7 @@ public class Game
 		if (i instanceof Potion && i.getName()=="Berserk Potion");
 		{
 			//multiply user's damage by 25% for 3 turns, can only be used in combat
-			p.setPlayaerDamage((int)(p.getPlayaerDamage() * 1.25));
+			p.setPlayaerDamage(p.getPlayaerDamage() * 1.25);
 			System.out.println("You have just used a Bersek Potion, your damage will be multipled by 25% for 3 turns");
 			p.getPlayerInventory().dropItem(i);
 		}
