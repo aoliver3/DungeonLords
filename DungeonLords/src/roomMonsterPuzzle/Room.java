@@ -1,4 +1,9 @@
+package roomMonsterPuzzle;
+
 import java.util.ArrayList;
+
+import GameDungeon.Player;
+import Subsystem3.Item;
 
 
 public class Room 
@@ -20,20 +25,30 @@ public class Room
 		this.bonfire = bonfire;
 	}
 
-	public void enter()
+	public void enter(Player p)
 	{
+		System.out.println(description);
 		if(roomMonster!=null && !roomMonster.isDefeated())
 		{
-			//start Battle
+			new Battle(p, roomMonster);
 		}
 		if(roomPuzzle!=null && !roomPuzzle.isSolved())
 		{
 			//start puzzle
 		}
-		else
+	}
+	
+	public Item getReward()
+	{
+		if (roomMonster!=null)
 		{
-			System.out.println(description);
+			return roomMonster.getLoot();
 		}
+		else if (roomPuzzle!=null)
+		{
+			return roomPuzzle.getReward();
+		}
+		else return null;
 	}
 	
 	public boolean hasBonfire()
@@ -54,5 +69,26 @@ public class Room
 	public void spawnPuzzle(Puzzle p)
 	{
 		this.roomPuzzle=p;
+	}
+	
+	public String getName() 
+	{
+		return name;
+	}
+
+	public Monster getRoomMonster() {
+		return roomMonster;
+	}
+
+	public Puzzle getRoomPuzzle() {
+		return roomPuzzle;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public ArrayList<Room> getExits() {
+		return exits;
 	}
 }
