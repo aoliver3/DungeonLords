@@ -1,11 +1,14 @@
-/**
- * 
- */
+
 package Subsystem3;
 
-/**
- * @author aharr_000
- *
+/**Class: Shield
+ * @author Aaron Harris
+ * @version 1.0
+ * Course: Software Development I Spring 2015
+ * 
+ * This class creates Shields to be used by the Player in the game DungeonLords 
+ * 
+ * Purpose: The purpose of this class is to create Shield objects that can be used by players
  */
 public class Shield extends Item
 {
@@ -14,30 +17,30 @@ public class Shield extends Item
 	
 	private int flatBlock;
 	private int percentBlock;
-	private int refelctDmg;
+	private int reflectDmg;
 
 	//Constructors & Methods
 	
-	public Shield(String name, String description, int limit, int quantity)
-	{
-		super(name, description, limit, quantity);
-		// TODO Auto-generated constructor stub
-	}
+	/**
+	 * Constructs a Shield object
+	 * @param name - name of the shield
+	 * @param description - description of the shield
+	 * @param limit - max amount of this particular shield the user can have at one time
+	 * @param quantity - how many of this particular shield the user has in their inventory
+	 * @param flatBlock - amount of damage to be absorbed by this shield
+	 * @param percentBlock - the percentage of time that this shield will block an attack
+	 * @param reflectDmg - amount of damage this shield reflects
+	 */
 
 	public Shield(String name, String description, int limit, int quantity,
-			int flatBlock, int percentBlock, int refelctDmg)
+			int flatBlock, int percentBlock, int reflectDmg)
 	{
 		super(name, description, limit, quantity);
 		this.flatBlock = flatBlock;
 		this.percentBlock = percentBlock;
-		this.refelctDmg = refelctDmg;
+		this.reflectDmg = reflectDmg;
 	}
 	
-	public void equipShield (Shield s)
-	{
-		Inventory.equipItem(s);
-	}
-
 	/**
 	 * @return the flatBlock
 	 */
@@ -55,11 +58,11 @@ public class Shield extends Item
 	}
 
 	/**
-	 * @return the refelctDmg
+	 * @return the reflectDmg
 	 */
-	public int getRefelctDmg()
+	public int getreflectDmg()
 	{
-		return refelctDmg;
+		return reflectDmg;
 	}
 
 	/**
@@ -79,11 +82,11 @@ public class Shield extends Item
 	}
 
 	/**
-	 * @param refelctDmg the refelctDmg to set
+	 * @param reflectDmg the reflectDmg to set
 	 */
-	public void setRefelctDmg(int refelctDmg)
+	public void setreflectDmg(int reflectDmg)
 	{
-		this.refelctDmg = refelctDmg;
+		this.reflectDmg = reflectDmg;
 	}
 
 	/* (non-Javadoc)
@@ -92,8 +95,8 @@ public class Shield extends Item
 	@Override
 	public String toString()
 	{
-		return "Shield [flatBlock=" + flatBlock + ", percentBlock="
-				+ percentBlock + ", refelctDmg=" + refelctDmg + "]";
+		
+		return "Shield" + "[name=" + getName() + "]" + "[flatBlock=" + flatBlock + "]" + "[percentBlock=" + percentBlock + "]" + "[reflectDmg=" + reflectDmg + "]" + "[description=" + getDescription() + "]" ;
 	}
 
 	/* (non-Javadoc)
@@ -106,7 +109,7 @@ public class Shield extends Item
 		int result = super.hashCode();
 		result = prime * result + flatBlock;
 		result = prime * result + percentBlock;
-		result = prime * result + refelctDmg;
+		result = prime * result + reflectDmg;
 		return result;
 	}
 
@@ -127,7 +130,7 @@ public class Shield extends Item
 			return false;
 		if (percentBlock != other.percentBlock)
 			return false;
-		if (refelctDmg != other.refelctDmg)
+		if (reflectDmg != other.reflectDmg)
 			return false;
 		return true;
 	}

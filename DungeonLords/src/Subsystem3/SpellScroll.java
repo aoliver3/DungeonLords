@@ -1,11 +1,14 @@
-/**
- * 
- */
+
 package Subsystem3;
 
-/**
- * @author aharr_000
- *
+/**Class: SpellScroll
+ * @author Aaron Harris
+ * @version 1.0
+ * Course: Software Development I Spring 2015
+ * 
+ * This class creates SpellScrolls to be used by the Player in the game DungeonLords 
+ * 
+ * Purpose: The purpose of this class is to create SpellScroll objects that can be used by players
  */
 public class SpellScroll extends Item
 {
@@ -14,11 +17,16 @@ public class SpellScroll extends Item
 	private String attribute;
 
 	//Constructors & Methods
-	public SpellScroll(String name, String description, int limit, int quantity)
-	{
-		super(name, description, limit, quantity);
-		// TODO Auto-generated constructor stub
-	}
+	
+	/**
+	 * Constructs a SpellScroll object
+	 * @param name - name of the SpellScroll
+	 * @param description - description of the SpellScroll
+	 * @param limit - the maximum amount of a particular SpellScroll a user can have at one time
+	 * @param quantity - number the user has
+	 * @param manaCost - the amount of mana needed by the user to cast this spell
+	 * @param attribute - special ability that this scroll has
+	 */
 
 	public SpellScroll(String name, String description, int limit,
 			int quantity, int manaCost, String attribute)
@@ -28,12 +36,6 @@ public class SpellScroll extends Item
 		this.attribute = attribute;
 	}
 	
-	
-	// Not sure if we will need this method or not
-	public void useSpell (SpellScroll sp)
-	{
-		
-	}
 
 	/**
 	 * @return the manaCost
