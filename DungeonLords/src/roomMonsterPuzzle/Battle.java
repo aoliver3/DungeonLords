@@ -1,7 +1,6 @@
 package roomMonsterPuzzle;
 import java.io.*;
-import GameDungeon.Game;
-import GameDungeon.Player;
+import gameSubsystem.*;
 
 public class Battle 
 {
@@ -11,9 +10,10 @@ public class Battle
 	BufferedReader inFromUser;
 
 
-	public Battle(Player user, Monster enemy)
+	public Battle(Game g, Monster enemy)
 	{
-		this.user = user;
+		this.game = g;
+		this.user = g.getGameDungeon().getUser();
 		this.enemy = enemy;
 		inFromUser = new BufferedReader(new InputStreamReader(System.in));
 
@@ -23,38 +23,47 @@ public class Battle
 	private void startBattle()
 	{
 		System.out.println("you have encountered " + enemy.getDescription());
-		if(Math.random()>.5)
-		{
-			for(double round = 0; enemy.getHealth()>0 && user.getCurrentHealth()>0; round=round+.5)
+		try
+		{	
+			if(Math.random()>.5)
 			{
-				if(round%1.0==0)
+
+				for(double round = 0; enemy.getHealth()>0 && user.getCurrentHealth()>0; round=round+.5)
 				{
-					playerTurn();
-				}else
+					if(round%1.0==0)
+					{
+
+						playerTurn();
+
+					}else
+					{
+						enemyTurn(round);
+					}
+				}
+			}else
+			{
+				for(double round = 0; enemy.getHealth()>0 && user.getCurrentHealth()>0; round=round+.5)
 				{
-					enemyTurn(round);
+					if(round%1.0==0)
+					{
+						enemyTurn(round);
+					}else
+					{
+						playerTurn();
+					}
 				}
 			}
-		}else
-		{
-			for(double round = 0; enemy.getHealth()>0 && user.getCurrentHealth()>0; round=round+.5)
+			if(enemy.getHealth()<=0)
 			{
-				if(round%1.0==0)
-				{
-					enemyTurn(round);
-				}else
-				{
-					playerTurn();
-				}
-			}
+				System.out.println("You have defeated the " + enemy.getName()); //+ ", " + enemy.getLoot().getName() + " dropped to the ground");
+			}else System.out.println(enemy.getName() + " has killed you, GAME OVER");
 		}
-		if(enemy.getHealth()<=0)
+		catch(FleeException fe)
 		{
-			System.out.println("You have defeated the " + enemy.getName()); //+ ", " + enemy.getLoot().getName() + " dropped to the ground");
-		}else System.out.println(enemy.getName() + " has killed you, GAME OVER");
+		}
 	}
 
-	private void playerTurn()
+	private void playerTurn() throws FleeException
 	{
 		try
 		{
@@ -71,11 +80,13 @@ public class Battle
 				}
 				else if(command.equals("use item"))
 				{
+					//game.useItem();
 					System.out.println("Used an item!");
-					//game.use();
 				} else if(command.equals("flee"))
 				{
-					System.out.println("You tried to run!");
+					System.out.println("You decide to run!");
+					game.flee();
+					throw new FleeException();
 				}else if (command.equalsIgnoreCase("help"))
 				{
 					System.out.println("Commands");

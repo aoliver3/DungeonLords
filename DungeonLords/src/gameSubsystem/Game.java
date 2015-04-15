@@ -115,7 +115,7 @@ public class Game
 			}
 		}
 		System.out.println("You have advanced to the " + gameDungeon.getUser().getCurrentRoom().getName());
-		gameDungeon.getUser().getCurrentRoom().enter();
+		gameDungeon.getUser().getCurrentRoom().enter(gameDungeon);
 	}
 
 	/**
@@ -179,25 +179,6 @@ public class Game
 		}
 	}
 
-	/**
-	 * method to allow the player to flee from a room and return 
-	 * to the previous room they were in
-	 */
-	public void flee()
-	{
-		int x = 0;
-		for (Room r: gameDungeon.getDungeon())
-		{
-			x = x + 1;
-			if (gameDungeon.getUser().getCurrentRoom().getName().equalsIgnoreCase(r.getName()))
-			{
-				//set players current room to the previous room in the array
-				gameDungeon.getUser().setCurrentRoom(gameDungeon.getDungeon().get(x - 1));
-			}
-		}
-		System.out.println("You have returned to the " + gameDungeon.getUser().getCurrentRoom().getName());
-	}
-
 	public void throwItem()
 	{
 		System.out.println("You have thrown an item. Hope it wasn't important!");
@@ -214,7 +195,7 @@ public class Game
 		if (gameDungeon.getUser().getPlayerInventory().contains(i))
 		{
 			System.out.println("You have dropped " + i);
-			gameDungeon.getUser().getPlayerInventory().dropItem(i);
+			gameDungeon.getUser().getPlayerInventory().getBag().remove(i);
 		} else {
 			System.out.println("You don't have any of those items");
 		}
@@ -229,23 +210,53 @@ public class Game
 	 */
 	public void use() throws IOException
 	{
-		System.out.println("What item would you like to use?");
-		int x = 1;
-		for (Item i: gameDungeon.getUser().getPlayerInventory().getBag())
+		//check to see if bag has any items
+		if (gameDungeon.getUser().getPlayerInventory().getBag().size() != 0)
 		{
-			System.out.println(i.getName());
+			//ask user which item to use
+			System.out.println("What item would you like to use?");
+			int numOfItems = 1;
+			//display list of items
+			for (Item i: gameDungeon.getUser().getPlayerInventory().getBag())
+			{
+				System.out.println(numOfItems + ": " +i.getName());
+				numOfItems = numOfItems + 1;
+			}
+			String in = userInput.readLine();
+			//check user input for valid index number
+			try
+			{
+				int input = Integer.parseInt(in);
+				
+				if (input > numOfItems)
+				{
+					System.out.println("No such item exist.");
+				}
+				else if (gameDungeon.getUser().getPlayerInventory().getBag().get(input).getName().equalsIgnoreCase("health potion"))
+				{
+					gameDungeon.getUser().setCurrentHealth(gameDungeon.getUser().getCurrentHealth() + 75);
+					System.out.println("You have used a health potion and regained 75 health.");
+					gameDungeon.getUser().getPlayerInventory().getBag().remove(input);
+				}
+				else if (gameDungeon.getUser().getPlayerInventory().getBag().get(input).getName().equalsIgnoreCase("mana potion"))
+				{
+					gameDungeon.getUser().setPlayerMana(gameDungeon.getUser().getPlayerMana() + 75);
+					System.out.println("You have used a mana potion and regained 75 mana.");
+					gameDungeon.getUser().getPlayerInventory().getBag().remove(input);
+				}
+				else
+				{
+					System.out.println("This is not a useable item.");
+				}
+			}
+			catch (Exception e)
+			{
+				System.out.println("No such item exist.");
+			}
 		}
-		
-		String in = userInput.readLine();
-		
-		/**
-		if (gameDungeon.getUser().getPlayerInventory().contains(i))
+		else
 		{
-			System.out.println("You have used a " + i);
-			gameDungeon.getUser().getPlayerInventory().dropItem(i);
-		} else {
-			System.out.println("You don't have any of those items");
+			System.out.println("You don't have any items to use.");
 		}
-		**/
 	}
 }
