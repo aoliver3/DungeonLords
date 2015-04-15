@@ -22,7 +22,7 @@ import Subsystem3.SpellScroll;
 public class Game
 {
 	private Dungeon gameDungeon;  //the player and his dungeon
-	BufferedReader userInput = new BufferedReader(new InputStreamReader(System.in));
+	BufferedReader userInput = new BufferedReader(new InputStreamReader(System.in)); //used to read input from the user
 
 	/**
 	 * constructor method to create a new game class
@@ -189,15 +189,46 @@ public class Game
 	 * item from their inventory, the method will display a
 	 * return message if the item was dropped or not
 	 * @param i item object
+	 * @throws IOException 
 	 */
-	public void drop(String i)
+	public void drop() throws IOException
 	{
-		if (gameDungeon.getUser().getPlayerInventory().contains(i))
+		//check to see if bag has any items
+		if (gameDungeon.getUser().getPlayerInventory().getBag().size() != 0)
 		{
-			System.out.println("You have dropped " + i);
-			gameDungeon.getUser().getPlayerInventory().getBag().remove(i);
-		} else {
-			System.out.println("You don't have any of those items");
+			//ask user which item to use
+			System.out.println("What item would you like to drop?");
+			int numOfItems = 0;
+			//display list of items
+			for (Item i: gameDungeon.getUser().getPlayerInventory().getBag())
+			{
+				System.out.println("Item " + numOfItems + ": " +i.getName());
+				numOfItems = numOfItems + 1;
+			}
+			String in = userInput.readLine();
+			//check user input for valid index number
+			try
+			{
+				int input = Integer.parseInt(in);
+
+				if (input > numOfItems)
+				{
+					System.out.println("No such item exist.");
+				}
+				else 
+				{
+					gameDungeon.getUser().getPlayerInventory().getBag().remove(input);
+				}
+				
+			}
+			catch (Exception e)
+			{
+				System.out.println("No such item exist.");
+			}
+		}
+		else
+		{
+			System.out.println("You don't have any items to use.");
 		}
 	}
 
@@ -215,11 +246,11 @@ public class Game
 		{
 			//ask user which item to use
 			System.out.println("What item would you like to use?");
-			int numOfItems = 1;
+			int numOfItems = 0;
 			//display list of items
 			for (Item i: gameDungeon.getUser().getPlayerInventory().getBag())
 			{
-				System.out.println(numOfItems + ": " +i.getName());
+				System.out.println("Item " + numOfItems + ": " +i.getName());
 				numOfItems = numOfItems + 1;
 			}
 			String in = userInput.readLine();
@@ -227,7 +258,7 @@ public class Game
 			try
 			{
 				int input = Integer.parseInt(in);
-				
+
 				if (input > numOfItems)
 				{
 					System.out.println("No such item exist.");
