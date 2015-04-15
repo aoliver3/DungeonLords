@@ -1,6 +1,7 @@
+package gameSubsystem;
 import java.io.*;
 import java.util.ArrayList;
-
+import Subsystem3.Inventory;
 import Subsystem3.Item;
 import Subsystem3.Potion;
 import Subsystem3.SpellScroll;
@@ -79,7 +80,7 @@ public class Game
 		try
 		{
 			setGameDungeon((Dungeon) in.readObject());
-		}
+		} 
 		finally
 		{
 			in.close();
@@ -94,14 +95,29 @@ public class Game
 		System.out.println(gameDungeon.getUser().getCurrentRoom().getDescription());
 	}
 
+	/**
+	 * method to move the player to the next room in the dungeon,
+	 * determines which room the player is currently in and
+	 * advances them to the next room
+	 */
 	public void move()
 	{
-
+		int x = 0;
+		for (Room r: gameDungeon.getDungeon())
+		{
+			x = x + 1;
+			if (gameDungeon.getUser().getCurrentRoom().name.equalsIgnoreCase(r.name))
+			{
+				//set players current room to next room in the array
+				gameDungeon.getUser().setCurrentRoom(gameDungeon.getDungeon().get(x + 1));
+			}
+		}
+		System.out.println("You have advanced to the " + gameDungeon.getUser().getCurrentRoom().name);
 	}
 
 	public void attack()
 	{
-		//get player damagae
+		//get player damage
 		//get monsters health
 		//monsters health - player damage
 	}
@@ -143,7 +159,7 @@ public class Game
 	public void equip(String it)
 	{
 		ArrayList<Item> bag = gameDungeon.getUser().getPlayerInventory().getBag();
-		
+
 		for (Item i: bag)
 		{
 			if (i.getName().equalsIgnoreCase(it))
@@ -151,16 +167,26 @@ public class Game
 				gameDungeon.getUser().getPlayerInventory().equipItem(i);
 				System.out.println("You have equiped the " + i.getName());
 			}
-			
 		}
-		
-		
-		//if (gameDungeon.getUser().getPlayerInventory().bag.contains((Item) i))
 	}
 
+	/**
+	 * method to allow the player to flee from a room and return 
+	 * to the previous room they were in
+	 */
 	public void flee()
 	{
-
+		int x = 0;
+		for (Room r: gameDungeon.getDungeon())
+		{
+			x = x + 1;
+			if (gameDungeon.getUser().getCurrentRoom().name.equalsIgnoreCase(r.name))
+			{
+				//set players current room to the previous room in the array
+				gameDungeon.getUser().setCurrentRoom(gameDungeon.getDungeon().get(x - 1));
+			}
+		}
+		System.out.println("You have returned to the " + gameDungeon.getUser().getCurrentRoom().name);
 	}
 
 	public void solve()
@@ -170,14 +196,26 @@ public class Game
 
 	public void throwItem()
 	{
-
+		System.out.println("You have thrown something. Hope it wasn't your last one!");
 	}
 
-	public void drop()
+	/**
+	 * method to allow a player to try and drop a selected
+	 * item from their inventory, the method will display a
+	 * return message if the item was dropped or not
+	 * @param i item object
+	 */
+	public void drop(Item i)
 	{
-
+		if (gameDungeon.getUser().getPlayerInventory().getBag().contains(i))
+		{
+			System.out.println("You have dropped " + i);
+			gameDungeon.getUser().getPlayerInventory().dropItem(i);
+		} else {
+			System.out.println("You don't have any of those items");
+		}
 	}
-	
+
 	/**
 	 * method that will determine if the players inventory contains
 	 * the required item and if it does then it will use that item

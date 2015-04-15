@@ -1,6 +1,7 @@
+package gameSubsystem;
 import java.util.ArrayList;
 
-/**Class: GameTest.java
+/**Class: DungeonTest.java
  * @author Anthony Oliver
  * @version 1.0 <p>
  * Course : ITEC 3150 Spring 2015
@@ -12,26 +13,22 @@ import java.util.ArrayList;
  * Purpose: – Describe the purpose of this class
  */
 
-public class GameTest
+public class DungeonTest
 {
-
+	
 	/**
-	 * this will be a method to test my game class and its methods
+	 * method to test my Dungeon class methods
 	 * @param args
 	 */
 	public static void main(String[] args)
 	{
-		//////////////////////////////////
-		// create a dungeon for my game //
-		//////////////////////////////////
-
 		//create a new player
 		Player p = new Player("Anthony");
 		//create an array list of room exits
 		ArrayList<Room> exit = new ArrayList<Room>();
 		//create rooms for the dungeon
 		Room r1 = new Room("room 1", "the ok room", exit, true);
-		Room r2 = new Room("room 2", "the good room", exit, false);
+		Room r2 = new Room("room 2", "the good room", exit, true);
 		Room r3 = new Room("room 3", "the great room", exit, true);
 		//put the rooms in an array list
 		ArrayList<Room> al = new ArrayList<Room>();
@@ -39,16 +36,13 @@ public class GameTest
 		//add the player and the rooms to the dungeon
 		Dungeon d = new Dungeon(p, al);
 
-		/////////////////////////////
-		// put my dungeon together //
-		/////////////////////////////
+		//testing the dungeon to see if it accepted the player and dungeon
+		System.out.println(d.getUser().getPlayerName()); //expected to get the players name Anthony
+		System.out.println(d.getDungeon().toString()); //should contain room r1, r2 & r3
 
-		Game g = new Game(d);
-		System.out.println(g.getGameDungeon().getUser().getPlayerName()); //expected output Anthony
-
-		//////////////////////////////////////////////
-		// create another dungeon to alter the game //
-		//////////////////////////////////////////////
+		///////////////////////////////////////
+		// will try to alter the dungeon now //
+		///////////////////////////////////////
 
 		//create a new player
 		Player p2 = new Player("Joey");
@@ -62,14 +56,12 @@ public class GameTest
 		ArrayList<Room> al2 = new ArrayList<Room>();
 		al2.add(r4); al2.add(r5); al2.add(r6);
 		//setting the dungeon to the new player and room variables
-		Dungeon d2 = new Dungeon(p2, al2);
-		
-		//altering the game dungeon
-		g.setGameDungeon(d2);
-		
-		//testing to see if the changes took effect
-		System.out.println(g.getGameDungeon().getUser().getPlayerName()); //expected output Joey
-		
+		d.setUser(p2);
+		d.setDungeon(al2);
+
+		//testing the dungeon to see if it accepted the second player and dungeon
+		System.out.println(d.getUser().getPlayerName()); //expected to get the players name Joey
+		System.out.println(d.getDungeon().toString()); //should contain room r4, r5 & r6
 	}
 
 }

@@ -1,3 +1,4 @@
+package gameSubsystem;
 import Subsystem3.Inventory;
 
 /**Class: Player.java
