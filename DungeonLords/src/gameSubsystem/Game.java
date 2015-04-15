@@ -1,7 +1,7 @@
 package gameSubsystem;
 import java.io.*;
 import java.util.ArrayList;
-import Subsystem3.Inventory;
+import roomMonsterPuzzle.Room;
 import Subsystem3.Item;
 import Subsystem3.Potion;
 import Subsystem3.SpellScroll;
@@ -106,13 +106,13 @@ public class Game
 		for (Room r: gameDungeon.getDungeon())
 		{
 			x = x + 1;
-			if (gameDungeon.getUser().getCurrentRoom().name.equalsIgnoreCase(r.name))
+			if (gameDungeon.getUser().getCurrentRoom().getName().equalsIgnoreCase(r.getName()))
 			{
 				//set players current room to next room in the array
 				gameDungeon.getUser().setCurrentRoom(gameDungeon.getDungeon().get(x + 1));
 			}
 		}
-		System.out.println("You have advanced to the " + gameDungeon.getUser().getCurrentRoom().name);
+		System.out.println("You have advanced to the " + gameDungeon.getUser().getCurrentRoom().getName());
 	}
 
 	public void attack()
@@ -180,13 +180,13 @@ public class Game
 		for (Room r: gameDungeon.getDungeon())
 		{
 			x = x + 1;
-			if (gameDungeon.getUser().getCurrentRoom().name.equalsIgnoreCase(r.name))
+			if (gameDungeon.getUser().getCurrentRoom().getName().equalsIgnoreCase(r.getName()))
 			{
 				//set players current room to the previous room in the array
 				gameDungeon.getUser().setCurrentRoom(gameDungeon.getDungeon().get(x - 1));
 			}
 		}
-		System.out.println("You have returned to the " + gameDungeon.getUser().getCurrentRoom().name);
+		System.out.println("You have returned to the " + gameDungeon.getUser().getCurrentRoom().getName());
 	}
 
 	public void solve()
@@ -289,7 +289,8 @@ public class Game
 			System.out.println("You have used the Spark spell, you can now see in this room");
 			p.getPlayerInventory().dropItem(i);
 		}
-
+		
+		/**
 		if (i instanceof SpellScroll && i.getName()=="Fodder");
 		{
 			p.setPlayerMana(p.getPlayerMana() - 20);
@@ -305,6 +306,8 @@ public class Game
 			// Throws a fireball at a target, dealing 18 damage. Start with this spell
 			Monster.setHealth(health - 18);
 			p.getPlayerInventory().dropItem(i);;
+			
 		}
+		**/
 	}
 }

@@ -1,4 +1,5 @@
 package gameSubsystem;
+import roomMonsterPuzzle.Room;
 import Subsystem3.Inventory;
 
 /**Class: Player.java

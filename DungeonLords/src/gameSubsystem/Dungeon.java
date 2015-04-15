@@ -1,6 +1,8 @@
 package gameSubsystem;
 import java.util.ArrayList;
 
+import roomMonsterPuzzle.Room;
+
 /**Class: Dungeon.java
  * @author Anthony Oliver
  * @version 1.0 <p>

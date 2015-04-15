@@ -1,6 +1,8 @@
 package gameSubsystem;
 import java.util.ArrayList;
 
+import roomMonsterPuzzle.Room;
+
 /**Class: GameTest.java
  * @author Anthony Oliver
  * @version 1.0 <p>
@@ -31,9 +33,9 @@ public class GameTest
 		//create an array list of room exits
 		ArrayList<Room> exit = new ArrayList<Room>();
 		//create rooms for the dungeon
-		Room r1 = new Room("room 1", "the ok room", exit, true);
-		Room r2 = new Room("room 2", "the good room", exit, false);
-		Room r3 = new Room("room 3", "the great room", exit, true);
+		Room r1 = new Room("room 1", "the ok room", true);
+		Room r2 = new Room("room 2", "the good room", false);
+		Room r3 = new Room("room 3", "the great room", true);
 		//put the rooms in an array list
 		ArrayList<Room> al = new ArrayList<Room>();
 		al.add(r1); al.add(r2); al.add(r3);
@@ -54,11 +56,11 @@ public class GameTest
 		//create a new player
 		Player p2 = new Player("Joey");
 		//create an array list of room exits
-		ArrayList<Room> exit2 = new ArrayList<Room>();
+		//ArrayList<Room> exit2 = new ArrayList<Room>();
 		//create rooms for the dungeon
-		Room r4 = new Room("room 4", "the awesome room", exit2, true);
-		Room r5 = new Room("room 5", "the gnarly room", exit2, true);
-		Room r6 = new Room("room 6", "the tubular room", exit2, true);
+		Room r4 = new Room("room 4", "the awesome room", true);
+		Room r5 = new Room("room 5", "the gnarly room", true);
+		Room r6 = new Room("room 6", "the tubular room", true);
 		//put the rooms in an array list
 		ArrayList<Room> al2 = new ArrayList<Room>();
 		al2.add(r4); al2.add(r5); al2.add(r6);
