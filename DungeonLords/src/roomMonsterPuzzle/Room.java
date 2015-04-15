@@ -12,83 +12,130 @@ public class Room
 	Monster roomMonster;
 	Puzzle roomPuzzle;
 	String description;
-	ArrayList<Room> exits;
+	//ArrayList<Room> exits;
 	boolean bonfire;
 
-	public Room(String name, String description, ArrayList<Room> exits, boolean bonfire) 
+	/**
+	 * default room constructor
+	 * @param name
+	 * @param description
+	 * @param bonfire
+	 */
+	public Room(String name, String description,  boolean bonfire) 
 	{
 		this.name = name;
 		this.roomMonster = null;
 		this.roomPuzzle = null;
 		this.description = description;
-		this.exits = exits;
+		//this.exits = exits;
 		this.bonfire = bonfire;
 	}
 
+	/**
+	 * method will be run whenever a player enters room and start a battle or puzzle depending on the rooms contents
+	 * @param p
+	 */
 	public void enter(Player p)
 	{
 		System.out.println(description);
 		if(roomMonster!=null && !roomMonster.isDefeated())
 		{
-			new Battle(p, roomMonster);
+			//new Battle(p, roomMonster);
 		}
 		if(roomPuzzle!=null && !roomPuzzle.isSolved())
 		{
 			//start puzzle
 		}
 	}
-	
+
+	/**
+	 * checks for a monster or puzzle and returns their reward if theyre defeated/solved
+	 * @return
+	 */
 	public Item getReward()
 	{
 		if (roomMonster!=null)
 		{
+			System.out.println("You found a " + roomMonster.getLoot().getName());
 			return roomMonster.getLoot();
 		}
 		else if (roomPuzzle!=null)
 		{
+			System.out.println("You found a " + roomPuzzle.getReward().getName()
+					);
 			return roomPuzzle.getReward();
 		}
 		else return null;
 	}
-	
+
+	/**
+	 * checks if room has a bonfire
+	 * @return
+	 */
 	public boolean hasBonfire()
 	{
 		return bonfire;
 	}
-	
+
+	/**
+	 * uses the bonfire and sets its attribute to false
+	 */
 	public void useBonfire()
 	{
 		bonfire = false;
 	}
-	
+
+	/**
+	 * sets the room monster
+	 * @param m
+	 */
 	public void spawnMonster(Monster m)
 	{
 		this.roomMonster = m;
 	}
 
+	/**
+	 * sets the room puzzle
+	 * @param p
+	 */
 	public void spawnPuzzle(Puzzle p)
 	{
 		this.roomPuzzle=p;
 	}
-	
+
+	/**
+	 * getter for room name
+	 * @return
+	 */
 	public String getName() 
 	{
 		return name;
 	}
 
-	public Monster getRoomMonster() {
+	/**
+	 * getter for room monster
+	 * @return
+	 */
+	public Monster getRoomMonster() 
+	{
 		return roomMonster;
 	}
 
-	public Puzzle getRoomPuzzle() {
+	/**
+	 * getter for room puzzle
+	 * @return
+	 */
+	public Puzzle getRoomPuzzle() 
+	{
 		return roomPuzzle;
 	}
 
-	public String getDescription() {
+	/**
+	 * Getter for room description
+	 * @return
+	 */
+	public String getDescription()
+	{
 		return description;
-	}
-
-	public ArrayList<Room> getExits() {
-		return exits;
 	}
 }

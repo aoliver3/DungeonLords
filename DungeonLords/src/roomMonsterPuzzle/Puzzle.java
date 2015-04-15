@@ -3,12 +3,18 @@ import Subsystem3.*;
 
 public class Puzzle 
 {
-	String startText;
-	String completeText;
-	Item reward;
-	Boolean completed;
-	Object solution;
+	String startText;//text that appears at start of puzzle
+	String completeText;//text that appears after completing a puzzle
+	Item reward;//reward for the puzzle
+	Boolean completed;//tells if the puzzle is completed
+	Object solution;//the solution for the puzzle, some puzzles solutions have different types
 
+	/**
+	 * Default constructor for puzzle, solution must be set separately
+	 * @param startText
+	 * @param completeText
+	 * @param reward
+	 */
 	public Puzzle(String startText, String completeText, Item reward)
 	{
 		this.startText = startText;
@@ -17,11 +23,29 @@ public class Puzzle
 		this.completed = false;
 	}
 
+	/**
+	 * returns true if puzzle has been solved
+	 * @return
+	 */
 	public boolean isSolved()
 	{
 		return completed;
 	}
 
+	/**
+	 * sets the puzzles solution
+	 * @param solution
+	 */
+	public void setSolution(Object solution) 
+	{
+		this.solution = solution;
+	}
+
+	/**
+	 * checks to see if the users input is the correct solution and changes the puzzle to completed if its correct
+	 * @param o
+	 * @return
+	 */
 	public boolean verrifyAttempt(Object o)
 	{
 		if(o.equals(solution))
@@ -33,14 +57,28 @@ public class Puzzle
 		else return false;
 	}
 
-	public String getStartText() {
+	/**
+	 * getter for start text
+	 * @return
+	 */
+	public String getStartText() 
+	{
 		return startText;
 	}
 
-	public String getCompleteText() {
+	/**
+	 * getter for complete text
+	 * @return
+	 */
+	public String getCompleteText() 
+	{
 		return completeText;
 	}
 
+	/**
+	 * getter for reward, returns null if puzzle hasnt been solved
+	 * @return
+	 */
 	public Item getReward() 
 	{
 		if(completed)
@@ -50,11 +88,21 @@ public class Puzzle
 		else return null;
 	}
 
-	public Boolean getCompleted() {
+	/**
+	 * checks if puzzle is completed
+	 * @return
+	 */
+	public Boolean getCompleted() 
+	{
 		return completed;
 	}
 
-	public Object getSolution() {
+	/**
+	 * returns solution of puzzle
+	 * @return
+	 */
+	public Object getSolution() 
+	{
 		return solution;
 	}
 }
