@@ -3,11 +3,11 @@ import Subsystem3.*;
 
 public class Puzzle 
 {
-	String startText;//text that appears at start of puzzle
-	String completeText;//text that appears after completing a puzzle
-	Item reward;//reward for the puzzle
-	Boolean completed;//tells if the puzzle is completed
-	Object solution;//the solution for the puzzle, some puzzles solutions have different types
+	private String startText;//text that appears at start of puzzle
+	private String completeText;//text that appears after completing a puzzle
+	private Item reward;//reward for the puzzle
+	private Boolean completed;//tells if the puzzle is completed
+	private Object solution;//the solution for the puzzle, some puzzles solutions have different types
 
 	/**
 	 * Default constructor for puzzle, solution must be set separately

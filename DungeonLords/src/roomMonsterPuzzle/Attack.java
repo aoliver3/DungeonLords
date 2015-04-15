@@ -2,10 +2,10 @@ package roomMonsterPuzzle;
 
 public class Attack 
 {
-	String name;
-	int damage;
-	int cooldown;
-	String description;
+	private String name;
+	private int damage;
+	private int cooldown;
+	private String description;
 
 	/**
 	 * default attack constructor

@@ -3,12 +3,12 @@ import Subsystem3.*;
 
 public class Monster 
 {
-	String name;
-	String description;
-	int health;
-	boolean defeated;
-	Item loot;
-	Attack attack;
+	private String name;
+	private String description;
+	private int health;
+	private boolean defeated;
+	private Item loot;
+	private Attack attack;
 
 	/**
 	 * Default Monster Constructor
@@ -57,6 +57,7 @@ public class Monster
 		if(health<=0)
 		{
 			die();
+			health = 0;
 			return 0;
 		}
 		else return health;

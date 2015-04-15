@@ -8,12 +8,12 @@ import Subsystem3.Item;
 
 public class Room 
 {
-	String name;
-	Monster roomMonster;
-	Puzzle roomPuzzle;
-	String description;
-	//ArrayList<Room> exits;
-	boolean bonfire;
+	private String name;
+	private Monster roomMonster;
+	private Puzzle roomPuzzle;
+	private String description;
+	//private ArrayList<Room> exits;
+	private boolean bonfire;
 
 	/**
 	 * default room constructor
