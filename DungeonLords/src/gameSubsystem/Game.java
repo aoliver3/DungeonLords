@@ -1,6 +1,7 @@
 package gameSubsystem;
 import java.io.*;
 import java.util.ArrayList;
+
 import roomMonsterPuzzle.Room;
 import Subsystem3.Item;
 import Subsystem3.Potion;
@@ -21,6 +22,7 @@ import Subsystem3.SpellScroll;
 public class Game
 {
 	private Dungeon gameDungeon;  //the player and his dungeon
+	BufferedReader userInput = new BufferedReader(new InputStreamReader(System.in));
 
 	/**
 	 * constructor method to create a new game class
@@ -113,13 +115,7 @@ public class Game
 			}
 		}
 		System.out.println("You have advanced to the " + gameDungeon.getUser().getCurrentRoom().getName());
-	}
-
-	public void attack()
-	{
-		//get player damage
-		//get monsters health
-		//monsters health - player damage
+		gameDungeon.getUser().getCurrentRoom().enter();
 	}
 
 	/**
@@ -133,10 +129,11 @@ public class Game
 		{
 			gameDungeon.getUser().setCurrentHealth(gameDungeon.getUser().getMaxHealth());
 			gameDungeon.getUser().getCurrentRoom().useBonfire();
+			System.out.println("You feel fully rested. Your health is full.");
 		}
 		else
 		{
-			System.out.println("You can not rest without a bonfire present.");
+			System.out.println("It's dark in here. To dangerous to rest.");
 		}
 	}
 
@@ -147,7 +144,15 @@ public class Game
 	 */
 	public void pickUp()
 	{
-		gameDungeon.getUser().getPlayerInventory().addItem(gameDungeon.getUser().getCurrentRoom().getReward());
+		Item i = gameDungeon.getUser().getCurrentRoom().getReward();
+		if (i != null)
+		{
+			gameDungeon.getUser().getPlayerInventory().addItem(i);
+		} 
+		else 
+		{
+			System.out.println("There's nothing to pick up.");
+		}
 	}
 
 	/**
@@ -166,6 +171,10 @@ public class Game
 			{
 				gameDungeon.getUser().getPlayerInventory().equipItem(i);
 				System.out.println("You have equiped the " + i.getName());
+			}
+			else
+			{
+				System.out.println("You don't have the item " + it);
 			}
 		}
 	}
@@ -189,14 +198,9 @@ public class Game
 		System.out.println("You have returned to the " + gameDungeon.getUser().getCurrentRoom().getName());
 	}
 
-	public void solve()
-	{
-
-	}
-
 	public void throwItem()
 	{
-		System.out.println("You have thrown something. Hope it wasn't your last one!");
+		System.out.println("You have thrown an item. Hope it wasn't important!");
 	}
 
 	/**
@@ -205,9 +209,9 @@ public class Game
 	 * return message if the item was dropped or not
 	 * @param i item object
 	 */
-	public void drop(Item i)
+	public void drop(String i)
 	{
-		if (gameDungeon.getUser().getPlayerInventory().getBag().contains(i))
+		if (gameDungeon.getUser().getPlayerInventory().contains(i))
 		{
 			System.out.println("You have dropped " + i);
 			gameDungeon.getUser().getPlayerInventory().dropItem(i);
@@ -221,92 +225,26 @@ public class Game
 	 * the required item and if it does then it will use that item
 	 * in the correct manner
 	 * @param i item object
+	 * @throws IOException 
 	 */
-	public void use(Item i)
+	public void use() throws IOException
 	{
-		Player p = gameDungeon.getUser();
-		if (i instanceof Potion && i.getName()=="Health Potion");
+		System.out.println("What item would you like to use?");
+		int x = 1;
+		for (Item i: gameDungeon.getUser().getPlayerInventory().getBag())
 		{
-			p.setCurrentHealth(p.getCurrentHealth() + 75);
-			System.out.println("You have just used a Health Potion, your health is now " + p.getCurrentHealth());
-			p.getPlayerInventory().dropItem(i);
-		}
-
-		if (i instanceof Potion && i.getName()=="Mana Potion");
-		{
-			p.setPlayerMana(p.getPlayerMana() + 75);
-			System.out.println("You have just used a Mana Potion, your mana is now " + p.getPlayerMana());
-			p.getPlayerInventory().dropItem(i);
-		}
-
-		if (i instanceof Potion && i.getName()=="Potion of Solidarity");
-		{
-			// freeze enemy for two turns
-			System.out.println("You have just used the Potion of Solidarity, this monster cannot attack for 2 turns");
-			p.getPlayerInventory().dropItem(i);
-		}
-
-		if (i instanceof Potion && i.getName()=="Berserk Potion");
-		{
-			//multiply user's damage by 25% for 3 turns, can only be used in combat
-			p.setPlayaerDamage((int)(p.getPlayaerDamage() * 1.25));
-			System.out.println("You have just used a Bersek Potion, your damage will be multipled by 25% for 3 turns");
-			p.getPlayerInventory().dropItem(i);
-		}
-
-		if (i instanceof SpellScroll && i.getName()=="Acid Cloud");
-		{
-			p.setPlayerMana(p.getPlayerMana() - 20);
-			// 20 mana. Does 0 damage to the target on cast, but inflicts the target wit 
-			// DoT effect that passively inflicts 8 damage per turn for 3 turns.
-			System.out.println("You have just used the Acid Cloud spell, this monster will lose 8 health points per turn for 3 turns");
-			p.getPlayerInventory().dropItem(i);
-		}
-
-		if (i instanceof SpellScroll && i.getName()=="Sonic Boom");
-		{
-			p.setPlayerMana(p.getPlayerMana() - 20);
-			//Does 12 damage to target on cast, but stuns them, leaving them
-			//unable to attack on their next move. Start with this spell.
-			System.out.println("You have just used the Sonic Boom spell, this monster has lost 12 health points and is unable to attack on their next move");
-			p.getPlayerInventory().dropItem(i);;
-		}
-
-		if (i instanceof SpellScroll && i.getName()=="Flood");
-		{
-			p.setPlayerMana(p.getPlayerMana() - 50);
-
-			//Instantly kills whatever enemy is in the room, excluding bosses, to whom
-			//it simply does a heavy 40 damage.
-			System.out.println("You have used the Flood spell, this monster is now dead");
-			p.getPlayerInventory().dropItem(i);
-		}
-
-		if (i instanceof SpellScroll && i.getName()=="Spark");
-		{
-			p.setPlayerMana(p.getPlayerMana() - 10);
-			// Lights up a dark room used for a puzzle
-			System.out.println("You have used the Spark spell, you can now see in this room");
-			p.getPlayerInventory().dropItem(i);
+			System.out.println(i.getName());
 		}
 		
+		String in = userInput.readLine();
+		
 		/**
-		if (i instanceof SpellScroll && i.getName()=="Fodder");
+		if (gameDungeon.getUser().getPlayerInventory().contains(i))
 		{
-			p.setPlayerMana(p.getPlayerMana() - 20);
-			// Summons a rain of magical arrows, dealing 15 damage. Always hits first
-			Monster.setHealth(health - 15);
-			System.out.println("You have used the Fodder spell, this monster has lost 15 health points");
-			p.getPlayerInventory().dropItem(i);
-		}
-
-		if (i instanceof SpellScroll && i.getName()=="Fireball");
-		{
-			p.setPlayerMana(p.getPlayerMana() - 20);
-			// Throws a fireball at a target, dealing 18 damage. Start with this spell
-			Monster.setHealth(health - 18);
-			p.getPlayerInventory().dropItem(i);;
-			
+			System.out.println("You have used a " + i);
+			gameDungeon.getUser().getPlayerInventory().dropItem(i);
+		} else {
+			System.out.println("You don't have any of those items");
 		}
 		**/
 	}
