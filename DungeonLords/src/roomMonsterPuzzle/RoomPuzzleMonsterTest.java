@@ -8,8 +8,8 @@ public class RoomPuzzleMonsterTest
 	{	
 		//contructing test objects
 		Attack a = new Attack("Test Attack", 1, 1, "The attack is a Test!");
-		Monster m = new Monster("Test Monster", "Its a Test!", 50, new Potion("M Potion", "Potion from Monster", 1, 1), a);
-		Puzzle p = new Puzzle("Start Puzzle", "Complete Puzzle", new Potion("P Potion", "Potion from puzzle", 1, 1));
+		Monster m = new Monster("Test Monster", "Its a Test!", 50, new Potion("M Potion", "Potion from Monster", 1, 1, 1, 1), a);
+		Puzzle p = new Puzzle("Start Puzzle", "Complete Puzzle", new Potion("P Potion", "Potion from puzzle", 1, 1,1,1));
 		Room r = new Room("Test Room", "This room is Testy!", true);
 		
 		//Monster Test
