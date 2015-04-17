@@ -117,7 +117,7 @@ public class SpellScroll extends Item
 		return true;
 	}
 	
-	public static void main(String[] args)
+	public static void createSpellScrolls ()
 	{
 		// SpellScroll sp1 = new SpellScroll ("Acid Cloud", "Creates an acid cloud over the enemy", 12, 1, 0, 75); // restores 75 health points
 	}
