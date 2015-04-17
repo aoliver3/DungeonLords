@@ -116,5 +116,13 @@ public class Potion extends Item
 			return false;
 		return true;
 	}
+	
+	public static void main(String[] args)
+	{
+		Potion p1 = new Potion ("Health Potion", "Restores health points", 12, 1, 0, 75); // restores 75 health points
+		Potion p2 = new Potion ("Mana Potion", "Restores mana points", 12, 1, 75, 0); // restores 75 mana points 
+		Potion p3 = new Potion ("Potion of Solidarity", "Special Potion of solidarity", 12, 1, 0, 0); // freezes enemy for 2 turns
+		Potion p4 = new Potion ("Beserk Potion", "Increase Attack Power", 12, 1, 0, 0); // increase player's attack by 25% for 3 turns
+	}
 
 }

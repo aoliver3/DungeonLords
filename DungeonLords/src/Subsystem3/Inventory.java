@@ -37,6 +37,10 @@ public class Inventory
 		this.armorSlot = armorSlot;
 		this.shieldSlot = shieldSlot;
 		this.bag = bag;
+		bag.add(p1);
+		bag.add(p1); // user starts off with 2 health potions in bag
+		bag.add(p2);
+		bag.add(p2); // user starts off with 2 mana potions in bag
 	}
 	
 	/**
@@ -48,6 +52,10 @@ public class Inventory
 		this.armorSlot = null;
 		this.shieldSlot = null;
 		bag = new ArrayList<Item>();
+		bag.add(p1);
+		bag.add(p1); // user starts off with 2 health potions in bag
+		bag.add(p2);
+		bag.add(p2); // user starts off with 2 mana potions in bag
 	}
 	
 	/**
@@ -161,16 +169,19 @@ public class Inventory
 		if (i instanceof Weapon)
 		{
 			setWeaponSlot((Weapon) i);
+			bag.remove(i);
 		}
 		
 		if (i instanceof Armor)
 		{
 			setArmorSlot((Armor) i);
+			bag.remove(i);
 		}
 		
 		if (i instanceof Shield)
 		{
 			setShieldSlot((Shield) i);
+			bag.remove(i);
 		}
 		
 	}

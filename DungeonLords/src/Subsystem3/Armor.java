@@ -88,6 +88,12 @@ public class Armor extends Item
 		return true;
 	}
 	
-	
+	public static void main(String[] args)
+	{
+		Armor a1 = new Armor ("Adventurer's Armor", "Armor given to adventurers", 12, 1, 25); // gives 25 bonusHP
+		Armor a2 = new Armor ("Ruby Armor", "Shiny, ruby red armor", 12, 1, 50); // gives 50 bonusHP
+		Armor a3 = new Armor ("Great Conqueror's Armor", "Thick ornate armor", 12, 1, 75); // gives 75 bonusHP
+
+	}
 
 }
