@@ -119,7 +119,7 @@ public class Potion extends Item
 		return true;
 	}
 	
-	public static void createPotions ()
+	public static ArrayList<Potion> createPotions ()
 	{
 		Potion p1 = new Potion ("Health Potion", "Restores health points", 12, 1, 0, 75); // restores 75 health points
 		Potion p2 = new Potion ("Mana Potion", "Restores mana points", 12, 1, 75, 0); // restores 75 mana points 
@@ -131,6 +131,8 @@ public class Potion extends Item
 		potions.add(p2);
 		potions.add(p3);
 		potions.add(p4);
+		
+		return potions;
 	}
 
 }

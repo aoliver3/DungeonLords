@@ -90,7 +90,7 @@ public class Armor extends Item
 		return true;
 	}
 	
-	public static void createArmors()
+	public static ArrayList<Armor> createArmors()
 	{
 		Armor a1 = new Armor ("Adventurer's Armor", "Armor given to adventurers", 12, 1, 25); // gives 25 bonusHP
 		Armor a2 = new Armor ("Ruby Armor", "Shiny, ruby red armor", 12, 1, 50); // gives 50 bonusHP
@@ -101,6 +101,7 @@ public class Armor extends Item
 		armors.add(a2);
 		armors.add(a3);
 
+		return armors;
 	}
 
 }

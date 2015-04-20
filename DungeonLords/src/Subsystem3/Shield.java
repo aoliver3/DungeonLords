@@ -137,7 +137,7 @@ public class Shield extends Item
 		return true;
 	}
 	
-	public static void createShields()
+	public static ArrayList<Shield> createShields()
 	{
 		Shield s1 = new Shield ("Adventurer's Shield", "Shield given to adventurers", 12, 1, 1, 0, 0); // absorbs 1 point of damage
 		Shield s2 = new Shield ("Razor Shield", "A barbed shield with a strange texture", 12, 1, 2, 0.15, 3); //absorbs 2 points of damage and has a 15% chance to damage attacker for 3 points
@@ -147,6 +147,8 @@ public class Shield extends Item
 		shields.add(s1);
 		shields.add(s2);
 		shields.add(s3);
+		
+		return shields;
 
 	}
 	

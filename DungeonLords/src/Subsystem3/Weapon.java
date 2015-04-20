@@ -92,7 +92,7 @@ public class Weapon extends Item
 		return true;
 	}
 	
-	public static void createWeapons()
+	public static ArrayList<Weapon> createWeapons()
 	{
 		Weapon w1 = new Weapon ("Adventurer's Sword", "Sword given to adventurers", 12, 1, 5);
 		Weapon w2 = new Weapon ("Bow & Arrow", "Weapon that pierces enemies with a sharp arrow", 12, 1, 5);
@@ -104,6 +104,8 @@ public class Weapon extends Item
 		weapons.add(w2);
 		weapons.add(w3);
 		weapons.add(w4);
+		
+		return weapons;
 
 	}
 
