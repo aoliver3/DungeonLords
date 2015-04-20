@@ -104,16 +104,18 @@ public class Game
 	 */
 	public void move()
 	{
-		int x = 0;
+		int currentRoom = 0;
+		int nextRoom = currentRoom;
 		for (Room r: gameDungeon.getDungeon())
 		{
-			x = x + 1;
 			if (gameDungeon.getUser().getCurrentRoom().getName().equalsIgnoreCase(r.getName()))
 			{
 				//set players current room to next room in the array
-				gameDungeon.getUser().setCurrentRoom(gameDungeon.getDungeon().get(x + 1));
+				nextRoom = currentRoom + 1;
 			}
+			currentRoom = currentRoom + 1;
 		}
+		gameDungeon.getUser().setCurrentRoom(gameDungeon.getDungeon().get(nextRoom));
 		System.out.println("You have advanced to the " + gameDungeon.getUser().getCurrentRoom().getName());
 		gameDungeon.getUser().getCurrentRoom().enter(gameDungeon);
 	}

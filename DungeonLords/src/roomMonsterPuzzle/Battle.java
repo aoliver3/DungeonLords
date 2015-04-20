@@ -1,19 +1,20 @@
 package roomMonsterPuzzle;
 import java.io.*;
+
 import gameSubsystem.*;
 
 public class Battle 
 {
-	Game game;
+	Dungeon d;
 	Player user;
 	Monster enemy;
 	BufferedReader inFromUser;
 
 
-	public Battle(Game g, Monster enemy)
+	public Battle(Dungeon d, Monster enemy)
 	{
-		this.game = g;
-		this.user = g.getGameDungeon().getUser();
+		this.d = d;
+		this.user = d.getUser();
 		this.enemy = enemy;
 		inFromUser = new BufferedReader(new InputStreamReader(System.in));
 
@@ -85,7 +86,7 @@ public class Battle
 				} else if(command.equals("flee"))
 				{
 					System.out.println("You decide to run!");
-					game.flee();
+					flee();
 					throw new FleeException();
 				}else if (command.equalsIgnoreCase("help"))
 				{
@@ -111,6 +112,19 @@ public class Battle
 
 		}
 	}
+
+	public void flee()
+	{
+		int x = 0;
+		while(!d.getDungeon().get(x).equals(user.getCurrentRoom()))
+		{
+			x++;
+		}
+		user.setCurrentRoom(d.getDungeon().get(x-1));
+
+		System.out.println("You have returned to the " + d.getUser().getCurrentRoom().getName());
+	}
+
 
 	private void enemyTurn(double round)
 	{

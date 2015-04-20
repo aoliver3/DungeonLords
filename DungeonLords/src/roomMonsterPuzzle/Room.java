@@ -1,7 +1,6 @@
 package roomMonsterPuzzle;
 
-import gameSubsystem.Game;
-import gameSubsystem.Player;
+import gameSubsystem.Dungeon;
 import Subsystem3.Item;
 
 public class Room 
@@ -33,12 +32,12 @@ public class Room
 	 * method will be run whenever a player enters room and start a battle or puzzle depending on the rooms contents
 	 * @param p
 	 */
-	public void enter(Game g)
+	public void enter(Dungeon d)
 	{
 		System.out.println(description);
 		if(roomMonster!=null && !roomMonster.isDefeated())
 		{
-			new Battle(g, roomMonster);
+			new Battle(d, roomMonster);
 		}
 		if(roomPuzzle!=null && !roomPuzzle.isSolved())
 		{
