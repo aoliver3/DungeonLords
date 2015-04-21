@@ -22,6 +22,10 @@ public class PlayGame
 	BufferedReader userInput = new BufferedReader(new InputStreamReader(System.in)); //used to read input from the user
 	boolean playAgain = true; //tells the game when to stop running
 
+	/**
+	 * method to display message at the start
+	 * of the game
+	 */
 	public void startGame()
 	{
 		System.out.println("Would you like to start a new adventure,");
@@ -31,6 +35,13 @@ public class PlayGame
 		System.out.println("3-Exit Game");
 	}
 
+	/**
+	 * method that creates a new game, ask the player for
+	 * a name for their character and creates a new Player 
+	 * object, also creates the dungeon and its rooms
+	 * @return a new game object
+	 * @throws IOException input/output exception
+	 */
 	public Game createNewGame() throws IOException
 	{
 		System.out.println("What is your name warrior?");
@@ -42,6 +53,13 @@ public class PlayGame
 		return newGame;
 	}
 
+	/**
+	 * method that loads a saved player and his dungeon
+	 * into the game
+	 * @return the saved player and his dungeon
+	 * @throws ClassNotFoundException class not found exception
+	 * @throws IOException input/output exception
+	 */
 	public Game loadSavedPlayer() throws ClassNotFoundException, IOException
 	{
 
@@ -51,6 +69,10 @@ public class PlayGame
 		return savedGame;
 	}
 
+	/**
+	 * method that displays a list of commands and
+	 * ask the user what to do
+	 */
 	public void commands()
 	{
 		String[] commands = {"0-Save Game", "1-Look", "2-Move", "3-Rest", 
@@ -65,6 +87,11 @@ public class PlayGame
 		}
 	}
 
+	/**
+	 * method that trys to execute the users input
+	 * @param runningGame a Game object
+	 * @throws IOException input/output exception
+	 */
 	public void runGame(Game runningGame) throws IOException
 	{
 		while (playAgain = true)
@@ -77,6 +104,7 @@ public class PlayGame
 				if (input == 0)
 				{
 					runningGame.saveGame();
+					playAgain = false;
 				} else if (input == 1)
 				{
 					runningGame.look();
@@ -157,5 +185,6 @@ public class PlayGame
 				System.out.println("Invalid command");
 			}
 		}
+		System.out.println("Until next time warrior... Goodbye!");
 	}
 }
