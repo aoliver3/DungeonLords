@@ -1,11 +1,8 @@
 package gameSubsystem;
 import java.io.*;
 import java.util.ArrayList;
-
 import roomMonsterPuzzle.Room;
 import Subsystem3.Item;
-import Subsystem3.Potion;
-import Subsystem3.SpellScroll;
 
 /**Class: Game.java
  * @author Anthony Oliver
@@ -173,8 +170,7 @@ public class Game
 			{
 				gameDungeon.getUser().getPlayerInventory().equipItem(i);
 				System.out.println("You have equiped the " + i.getName());
-			}
-			else
+			} else
 			{
 				System.out.println("You don't have the item " + it);
 			}
@@ -216,8 +212,7 @@ public class Game
 				if (input > numOfItems)
 				{
 					System.out.println("No such item exist.");
-				}
-				else 
+				} else 
 				{
 					gameDungeon.getUser().getPlayerInventory().getBag().remove(input);
 				}
@@ -227,8 +222,7 @@ public class Game
 			{
 				System.out.println("No such item exist.");
 			}
-		}
-		else
+		} else
 		{
 			System.out.println("You don't have any items to use.");
 		}
