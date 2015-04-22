@@ -1,8 +1,12 @@
 package gameSubsystem;
 import java.io.*;
 import java.util.ArrayList;
+
 import roomMonsterPuzzle.Room;
+import Subsystem3.Armor;
 import Subsystem3.Item;
+import Subsystem3.Shield;
+import Subsystem3.Weapon;
 
 /**Class: Game.java
  * @author Anthony Oliver
@@ -159,21 +163,52 @@ public class Game
 	 * inventory. if they do then they will equip this item and gain its
 	 * equipped attributes
 	 * @param it
+	 * @throws IOException 
 	 */
-	public void equip(String it)
+	public void equip() throws IOException
 	{
-		ArrayList<Item> bag = gameDungeon.getUser().getPlayerInventory().getBag();
-
-		for (Item i: bag)
+		//check to see if bag has any items
+		if (gameDungeon.getUser().getPlayerInventory().getBag().size() != 0)
 		{
-			if (i.getName().equalsIgnoreCase(it))
+			//ask user which item to use
+			System.out.println("What item would you like to equip? Enter a number...");
+			int numOfItems = 0;
+			//display list of items
+			for (Item i: gameDungeon.getUser().getPlayerInventory().getBag())
 			{
-				gameDungeon.getUser().getPlayerInventory().equipItem(i);
-				System.out.println("You have equiped the " + i.getName());
-			} else
-			{
-				System.out.println("You don't have the item " + it);
+				System.out.println("Item " + numOfItems + ": " +i.getName());
+				numOfItems = numOfItems + 1;
 			}
+			String in = userInput.readLine();
+			//check user input for valid index number
+			try
+			{
+				int input = Integer.parseInt(in);
+
+				if (input > numOfItems)
+				{
+					System.out.println("No such item exist.");
+				} else 
+				{
+					//try and equip an item in the players inventory
+					Item i = gameDungeon.getUser().getPlayerInventory().getBag().get(input);
+					if (i instanceof Armor || i instanceof Weapon || i instanceof Shield)
+					{
+						gameDungeon.getUser().getPlayerInventory().equipItem(i);
+					} else
+					{
+						System.out.println("This is not an equipable item");
+					}
+				}
+
+			}
+			catch (Exception e)
+			{
+				System.out.println("No such item exist.");
+			}
+		} else
+		{
+			System.out.println("You don't have any items to equip.");
 		}
 	}
 
@@ -195,7 +230,7 @@ public class Game
 		if (gameDungeon.getUser().getPlayerInventory().getBag().size() != 0)
 		{
 			//ask user which item to use
-			System.out.println("What item would you like to drop?");
+			System.out.println("What item would you like to drop? Enter a number...");
 			int numOfItems = 0;
 			//display list of items
 			for (Item i: gameDungeon.getUser().getPlayerInventory().getBag())
@@ -216,7 +251,7 @@ public class Game
 				{
 					gameDungeon.getUser().getPlayerInventory().getBag().remove(input);
 				}
-				
+
 			}
 			catch (Exception e)
 			{
@@ -224,7 +259,7 @@ public class Game
 			}
 		} else
 		{
-			System.out.println("You don't have any items to use.");
+			System.out.println("You don't have any items to drop.");
 		}
 	}
 
@@ -241,7 +276,7 @@ public class Game
 		if (gameDungeon.getUser().getPlayerInventory().getBag().size() != 0)
 		{
 			//ask user which item to use
-			System.out.println("What item would you like to use?");
+			System.out.println("What item would you like to use? Enter a number...");
 			int numOfItems = 0;
 			//display list of items
 			for (Item i: gameDungeon.getUser().getPlayerInventory().getBag())

@@ -119,7 +119,7 @@ public class PlayGame
 					runningGame.pickUp();
 				} else if (input == 5)
 				{
-					//runningGame.equip(it);  //needs to be fixed
+					runningGame.equip();
 				} else if (input == 6)
 				{
 					runningGame.throwItem();
