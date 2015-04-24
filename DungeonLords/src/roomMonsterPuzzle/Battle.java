@@ -1,6 +1,7 @@
 package roomMonsterPuzzle;
 import java.io.*;
 
+import Subsystem3.Potion;
 import gameSubsystem.*;
 
 public class Battle 
@@ -48,6 +49,10 @@ public class Battle
 					if(round%1.0==0)
 					{
 						enemyTurn(round);
+						if(user.getCurrentHealth()<=0 && user.getPlayerInventory().getBag().contains(new Potion("Phoenix Statue", "A mysterious statue with a faint glow", 1,1,1,1)))
+						{
+							user.setCurrentHealth(user.getMaxHealth());
+						}
 					}else
 					{
 						playerTurn();

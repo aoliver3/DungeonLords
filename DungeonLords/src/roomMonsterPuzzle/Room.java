@@ -30,7 +30,7 @@ public class Room
 
 	/**
 	 * method will be run whenever a player enters room and start a battle or puzzle depending on the rooms contents
-	 * @param p
+	 * @param d
 	 */
 	public void enter(Dungeon d)
 	{
@@ -41,7 +41,7 @@ public class Room
 		}
 		if(roomPuzzle!=null && !roomPuzzle.isSolved())
 		{
-			//start puzzle
+			roomPuzzle.startPuzzle(d);
 		}
 	}
 
