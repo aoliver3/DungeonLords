@@ -1,6 +1,8 @@
 
 package Subsystem3;
 
+import java.util.ArrayList;
+
 /**Class: Shield
  * @author Aaron Harris
  * @version 1.0
@@ -16,7 +18,7 @@ public class Shield extends Item
 	// Instance Variables
 	
 	private int flatBlock;
-	private int percentBlock;
+	private double percentBlock;
 	private int reflectDmg;
 
 	//Constructors & Methods
@@ -33,7 +35,7 @@ public class Shield extends Item
 	 */
 
 	public Shield(String name, String description, int limit, int quantity,
-			int flatBlock, int percentBlock, int reflectDmg)
+			int flatBlock, double percentBlock, int reflectDmg)
 	{
 		super(name, description, limit, quantity);
 		this.flatBlock = flatBlock;
@@ -52,7 +54,7 @@ public class Shield extends Item
 	/**
 	 * @return the percentBlock
 	 */
-	public int getPercentBlock()
+	public double getPercentBlock()
 	{
 		return percentBlock;
 	}
@@ -106,11 +108,11 @@ public class Shield extends Item
 	public int hashCode()
 	{
 		final int prime = 31;
-		int result = super.hashCode();
+		double result = super.hashCode();
 		result = prime * result + flatBlock;
 		result = prime * result + percentBlock;
 		result = prime * result + reflectDmg;
-		return result;
+		return (int) result;
 	}
 
 	/* (non-Javadoc)
@@ -135,7 +137,20 @@ public class Shield extends Item
 		return true;
 	}
 	
-	
+	public static ArrayList<Shield> createShields()
+	{
+		Shield s1 = new Shield ("Adventurer's Shield", "Shield given to adventurers", 12, 1, 1, 0, 0); // absorbs 1 point of damage
+		Shield s2 = new Shield ("Razor Shield", "A barbed shield with a strange texture", 12, 1, 2, 0.15, 3); //absorbs 2 points of damage and has a 15% chance to damage attacker for 3 points
+		Shield s3 = new Shield ("Great Conqueror's Shield", "Large ornate shield", 12, 1, 0, 0, 0); // absorbs %50 of damage
+		
+		ArrayList<Shield> shields = new ArrayList<Shield>();
+		shields.add(s1);
+		shields.add(s2);
+		shields.add(s3);
+		
+		return shields;
+
+	}
 	
 	
 

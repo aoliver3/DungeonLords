@@ -60,96 +60,7 @@ public class Inventory
 		System.out.println("You have dropped " + i.getName());
 	}
 	
-
-	/**
-	 * useItem - this method is for spells & potions only. Each potion/spell does different things depending on which one the player wants to use
-	 * @param i - the item the user wants to use
-	 */
 	
-	public void useItem (Item i)
-	{
-		if (i instanceof Potion && i.getName().equalsIgnoreCase("Health Potion"));
-		{
-			Player.setHealth(health + 75);
-			System.out.println("You have just used a Health Potion, your health is now " + Player.getHealth());
-			bag.remove(i);
-		}
-		
-		if (i instanceof Potion && i.getName().equalsIgnoreCase("Mana Potion"));
-		{
-			Player.setMana(mana + 75);
-			System.out.println("You have just used a Mana Potion, your mana is now " + Player.getMana());
-			bag.remove(i);
-		}
-		
-		if (i instanceof Potion && i.getName().equalsIgnoreCase("Potion of Solidarity"));
-		{
-			// freeze enemy for two turns
-			System.out.println("You have just used the Potion of Solidarity, this monster cannot attack for 2 turns");
-			bag.remove(i);
-		}
-		
-		if (i instanceof Potion && i.getName().equalsIgnoreCase("Berserk Potion"));
-		{
-			//multiply user's damage by 25% for 3 turns, can only be used in combat
-			Player.setDamage(damage * 0.25);
-			System.out.println("You have just used a Bersek Potion, your damage will be multipled by 25% for 3 turns");
-			bag.remove(i);
-		}
-		
-		if (i instanceof SpellScroll && i.getName().equalsIgnoreCase("Acid Cloud"));
-		{
-			Player.setMana(mana - 20);
-			// 20 mana. Does 0 damage to the target on cast, but inflicts the target wit 
-			// DoT effect that passively inflicts 8 damage per turn for 3 turns.
-			System.out.println("You have just used the Acid Cloud spell, this monster will lose 8 health points per turn for 3 turns");
-			bag.remove(i);
-		}
-		
-		if (i instanceof SpellScroll && i.getName().equalsIgnoreCase("Sonic Boom"));
-		{
-			Player.setMana(mana - 20);
-			//Does 12 damage to target on cast, but stuns them, leaving them
-			//unable to attack on their next move. Start with this spell.
-			System.out.println("You have just used the Sonic Boom spell, this monster has lost 12 health points and is unable to attack on their next move");
-			bag.remove(i);
-		}
-		
-		if (i instanceof SpellScroll && i.getName().equalsIgnoreCase("Flood"));
-		{
-			Player.setMana(mana - 50);
-			
-			//Instantly kills whatever enemy is in the room, excluding bosses, to whom
-			//it simply does a heavy 40 damage.
-			System.out.println("You have used the Flood spell, this monster is now dead");
-			bag.remove(i);
-		}
-		
-		if (i instanceof SpellScroll && i.getName().equalsIgnoreCase("Spark"));
-		{
-			Player.setMana(mana - 10);
-			// Lights up a dark room used for a puzzle
-			System.out.println("You have used the Spark spell, you can now see in this room");
-			bag.remove(i);
-		}
-		
-		if (i instanceof SpellScroll && i.getName().equalsIgnoreCase("Fodder"));
-		{
-			Player.setMana(mana - 20);
-			// Summons a rain of magical arrows, dealing 15 damage. Always hits first
-			Monster.setHealth(health - 15);
-			System.out.println("You have used the Fodder spell, this monster has lost 15 health points");
-			bag.remove(i);
-		}
-		
-		if (i instanceof SpellScroll && i.getName().equalsIgnoreCase("Fireball"));
-		{
-			Player.setMana(mana - 20);
-			// Throws a fireball at a target, dealing 18 damage. Start with this spell
-			Monster.setHealth(health - 18);
-			bag.remove(i);
-		}
-	}
 	
 	/**
 	 * equipItem - this method equips an item from a players bag to a players current item slot depending on what type of item it is.
@@ -160,17 +71,23 @@ public class Inventory
 	{
 		if (i instanceof Weapon)
 		{
+			bag.add(getWeaponSlot());
 			setWeaponSlot((Weapon) i);
+			bag.remove(i);
 		}
 		
 		if (i instanceof Armor)
 		{
+			bag.add(getArmorSlot());
 			setArmorSlot((Armor) i);
+			bag.remove(i);
 		}
 		
 		if (i instanceof Shield)
 		{
+			bag.add(getShieldSlot());
 			setShieldSlot((Shield) i);
+			bag.remove(i);
 		}
 		
 	}
