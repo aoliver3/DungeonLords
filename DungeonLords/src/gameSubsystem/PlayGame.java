@@ -159,8 +159,7 @@ public class PlayGame
 			catch (Exception e)
 			{
 				System.out.println("This is not a valid command");
-				System.out.println(e);
-
+				//System.out.println(e);
 			}
 		}
 	}
