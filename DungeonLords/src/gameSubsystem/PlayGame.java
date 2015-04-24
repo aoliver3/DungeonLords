@@ -14,6 +14,12 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+
+import Subsystem3.Armor;
+import Subsystem3.Item;
+import Subsystem3.Potion;
+import Subsystem3.Shield;
+import Subsystem3.Weapon;
 import roomMonsterPuzzle.Room;
 import roomMonsterPuzzle.RoomCreator;
 
@@ -48,6 +54,22 @@ public class PlayGame
 		String newbie = userInput.readLine();
 		Dungeon newDungeon = new Dungeon(new Player(newbie), RoomCreator.rooms());
 		Game newGame = new Game(newDungeon);
+
+		///starting items for a new player
+		Item a1 = new Armor ("Adventurer's Armor", "Armor given to adventurers", 12, 1, 25);
+		Item p1 = new Potion ("Health Potion", "Restores health points", 12, 1, 0, 75);
+		Item p2 = new Potion ("Mana Potion", "Restores mana points", 12, 1, 75, 0);
+		Item s1 = new Shield ("Adventurer's Shield", "Shield given to adventurers", 12, 1, 1, 0, 0);
+		Item w1 = new Weapon ("Adventurer's Sword", "Sword given to adventurers", 12, 1, 5);
+		
+		//add the starting items to players inventory
+		newGame.getGameDungeon().getUser().getPlayerInventory().getBag().add(a1);
+		newGame.getGameDungeon().getUser().getPlayerInventory().getBag().add(s1);
+		newGame.getGameDungeon().getUser().getPlayerInventory().getBag().add(w1);
+		newGame.getGameDungeon().getUser().getPlayerInventory().getBag().add(p1);
+		newGame.getGameDungeon().getUser().getPlayerInventory().getBag().add(p1);
+		newGame.getGameDungeon().getUser().getPlayerInventory().getBag().add(p2);
+		newGame.getGameDungeon().getUser().getPlayerInventory().getBag().add(p2);
 
 		System.out.println("Good luck on your journey " + newbie);
 		return newGame;
@@ -137,6 +159,8 @@ public class PlayGame
 			catch (Exception e)
 			{
 				System.out.println("This is not a valid command");
+				System.out.println(e);
+
 			}
 		}
 	}

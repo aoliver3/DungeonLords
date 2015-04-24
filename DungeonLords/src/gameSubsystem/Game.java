@@ -151,6 +151,7 @@ public class Game
 		if (i != null)
 		{
 			gameDungeon.getUser().getPlayerInventory().addItem(i);
+			System.out.println(i.getDescription());
 		} 
 		else 
 		{
@@ -195,6 +196,8 @@ public class Game
 					if (i instanceof Armor || i instanceof Weapon || i instanceof Shield)
 					{
 						gameDungeon.getUser().getPlayerInventory().equipItem(i);
+						System.out.println("You have equipped the" + i.getName());
+						System.out.println("You have equipped the" + i.getDescription());						
 					} else
 					{
 						System.out.println("This is not an equipable item");
