@@ -1,10 +1,12 @@
 package gameSubsystem;
 import java.io.*;
 import java.util.ArrayList;
+
 import roomMonsterPuzzle.Room;
+import Subsystem3.Armor;
 import Subsystem3.Item;
-import Subsystem3.Potion;
-import Subsystem3.SpellScroll;
+import Subsystem3.Shield;
+import Subsystem3.Weapon;
 
 /**Class: Game.java
  * @author Anthony Oliver
@@ -21,6 +23,7 @@ import Subsystem3.SpellScroll;
 public class Game
 {
 	private Dungeon gameDungeon;  //the player and his dungeon
+	BufferedReader userInput = new BufferedReader(new InputStreamReader(System.in)); //used to read input from the user
 
 	/**
 	 * constructor method to create a new game class
@@ -102,24 +105,20 @@ public class Game
 	 */
 	public void move()
 	{
-		int x = 0;
+		int currentRoom = 0;
+		int nextRoom = currentRoom;
 		for (Room r: gameDungeon.getDungeon())
 		{
-			x = x + 1;
 			if (gameDungeon.getUser().getCurrentRoom().getName().equalsIgnoreCase(r.getName()))
 			{
 				//set players current room to next room in the array
-				gameDungeon.getUser().setCurrentRoom(gameDungeon.getDungeon().get(x + 1));
+				nextRoom = currentRoom + 1;
 			}
+			currentRoom = currentRoom + 1;
 		}
+		gameDungeon.getUser().setCurrentRoom(gameDungeon.getDungeon().get(nextRoom));
 		System.out.println("You have advanced to the " + gameDungeon.getUser().getCurrentRoom().getName());
-	}
-
-	public void attack()
-	{
-		//get player damage
-		//get monsters health
-		//monsters health - player damage
+		gameDungeon.getUser().getCurrentRoom().enter(gameDungeon);
 	}
 
 	/**
@@ -133,10 +132,11 @@ public class Game
 		{
 			gameDungeon.getUser().setCurrentHealth(gameDungeon.getUser().getMaxHealth());
 			gameDungeon.getUser().getCurrentRoom().useBonfire();
+			System.out.println("You feel fully rested. Your health is full.");
 		}
 		else
 		{
-			System.out.println("You can not rest without a bonfire present.");
+			System.out.println("It's dark in here. To dangerous to rest.");
 		}
 	}
 
@@ -147,7 +147,16 @@ public class Game
 	 */
 	public void pickUp()
 	{
-		gameDungeon.getUser().getPlayerInventory().addItem(gameDungeon.getUser().getCurrentRoom().getReward());
+		Item i = gameDungeon.getUser().getCurrentRoom().getReward();
+		if (i != null)
+		{
+			gameDungeon.getUser().getPlayerInventory().addItem(i);
+			System.out.println(i.getDescription());
+		} 
+		else 
+		{
+			System.out.println("There's nothing to pick up.");
+		}
 	}
 
 	/**
@@ -155,48 +164,60 @@ public class Game
 	 * inventory. if they do then they will equip this item and gain its
 	 * equipped attributes
 	 * @param it
+	 * @throws IOException 
 	 */
-	public void equip(String it)
+	public void equip() throws IOException
 	{
-		ArrayList<Item> bag = gameDungeon.getUser().getPlayerInventory().getBag();
-
-		for (Item i: bag)
+		//check to see if bag has any items
+		if (gameDungeon.getUser().getPlayerInventory().getBag().size() != 0)
 		{
-			if (i.getName().equalsIgnoreCase(it))
+			//ask user which item to use
+			System.out.println("What item would you like to equip? Enter a number...");
+			int numOfItems = 0;
+			//display list of items
+			for (Item i: gameDungeon.getUser().getPlayerInventory().getBag())
 			{
-				gameDungeon.getUser().getPlayerInventory().equipItem(i);
-				System.out.println("You have equiped the " + i.getName());
+				System.out.println("Item " + numOfItems + ": " +i.getName());
+				numOfItems = numOfItems + 1;
 			}
-		}
-	}
+			String in = userInput.readLine();
+			//check user input for valid index number
+			try
+			{
+				int input = Integer.parseInt(in);
 
-	/**
-	 * method to allow the player to flee from a room and return 
-	 * to the previous room they were in
-	 */
-	public void flee()
-	{
-		int x = 0;
-		for (Room r: gameDungeon.getDungeon())
+				if (input > numOfItems)
+				{
+					System.out.println("No such item exist.");
+				} else 
+				{
+					//try and equip an item in the players inventory
+					Item i = gameDungeon.getUser().getPlayerInventory().getBag().get(input);
+					if (i instanceof Armor || i instanceof Weapon || i instanceof Shield)
+					{
+						gameDungeon.getUser().getPlayerInventory().equipItem(i);
+						System.out.println("You have equipped the" + i.getName());
+						System.out.println("You have equipped the" + i.getDescription());						
+					} else
+					{
+						System.out.println("This is not an equipable item");
+					}
+				}
+
+			}
+			catch (Exception e)
+			{
+				System.out.println("No such item exist.");
+			}
+		} else
 		{
-			x = x + 1;
-			if (gameDungeon.getUser().getCurrentRoom().getName().equalsIgnoreCase(r.getName()))
-			{
-				//set players current room to the previous room in the array
-				gameDungeon.getUser().setCurrentRoom(gameDungeon.getDungeon().get(x - 1));
-			}
+			System.out.println("You don't have any items to equip.");
 		}
-		System.out.println("You have returned to the " + gameDungeon.getUser().getCurrentRoom().getName());
-	}
-
-	public void solve()
-	{
-
 	}
 
 	public void throwItem()
 	{
-		System.out.println("You have thrown something. Hope it wasn't your last one!");
+		System.out.println("You have thrown an item. Hope it wasn't important!");
 	}
 
 	/**
@@ -204,15 +225,44 @@ public class Game
 	 * item from their inventory, the method will display a
 	 * return message if the item was dropped or not
 	 * @param i item object
+	 * @throws IOException 
 	 */
-	public void drop(Item i)
+	public void drop() throws IOException
 	{
-		if (gameDungeon.getUser().getPlayerInventory().getBag().contains(i))
+		//check to see if bag has any items
+		if (gameDungeon.getUser().getPlayerInventory().getBag().size() != 0)
 		{
-			System.out.println("You have dropped " + i);
-			gameDungeon.getUser().getPlayerInventory().dropItem(i);
-		} else {
-			System.out.println("You don't have any of those items");
+			//ask user which item to use
+			System.out.println("What item would you like to drop? Enter a number...");
+			int numOfItems = 0;
+			//display list of items
+			for (Item i: gameDungeon.getUser().getPlayerInventory().getBag())
+			{
+				System.out.println("Item " + numOfItems + ": " +i.getName());
+				numOfItems = numOfItems + 1;
+			}
+			String in = userInput.readLine();
+			//check user input for valid index number
+			try
+			{
+				int input = Integer.parseInt(in);
+
+				if (input > numOfItems)
+				{
+					System.out.println("No such item exist.");
+				} else 
+				{
+					gameDungeon.getUser().getPlayerInventory().getBag().remove(input);
+				}
+
+			}
+			catch (Exception e)
+			{
+				System.out.println("No such item exist.");
+			}
+		} else
+		{
+			System.out.println("You don't have any items to drop.");
 		}
 	}
 
@@ -221,93 +271,57 @@ public class Game
 	 * the required item and if it does then it will use that item
 	 * in the correct manner
 	 * @param i item object
+	 * @throws IOException 
 	 */
-	public void use(Item i)
+	public void use() throws IOException
 	{
-		Player p = gameDungeon.getUser();
-		if (i instanceof Potion && i.getName()=="Health Potion");
+		//check to see if bag has any items
+		if (gameDungeon.getUser().getPlayerInventory().getBag().size() != 0)
 		{
-			p.setCurrentHealth(p.getCurrentHealth() + 75);
-			System.out.println("You have just used a Health Potion, your health is now " + p.getCurrentHealth());
-			p.getPlayerInventory().dropItem(i);
-		}
+			//ask user which item to use
+			System.out.println("What item would you like to use? Enter a number...");
+			int numOfItems = 0;
+			//display list of items
+			for (Item i: gameDungeon.getUser().getPlayerInventory().getBag())
+			{
+				System.out.println("Item " + numOfItems + ": " +i.getName());
+				numOfItems = numOfItems + 1;
+			}
+			String in = userInput.readLine();
+			//check user input for valid index number
+			try
+			{
+				int input = Integer.parseInt(in);
 
-		if (i instanceof Potion && i.getName()=="Mana Potion");
-		{
-			p.setPlayerMana(p.getPlayerMana() + 75);
-			System.out.println("You have just used a Mana Potion, your mana is now " + p.getPlayerMana());
-			p.getPlayerInventory().dropItem(i);
+				if (input > numOfItems)
+				{
+					System.out.println("No such item exist.");
+				}
+				else if (gameDungeon.getUser().getPlayerInventory().getBag().get(input).getName().equalsIgnoreCase("health potion"))
+				{
+					gameDungeon.getUser().setCurrentHealth(gameDungeon.getUser().getCurrentHealth() + 75);
+					System.out.println("You have used a health potion and regained 75 health.");
+					gameDungeon.getUser().getPlayerInventory().getBag().remove(input);
+				}
+				else if (gameDungeon.getUser().getPlayerInventory().getBag().get(input).getName().equalsIgnoreCase("mana potion"))
+				{
+					gameDungeon.getUser().setPlayerMana(gameDungeon.getUser().getPlayerMana() + 75);
+					System.out.println("You have used a mana potion and regained 75 mana.");
+					gameDungeon.getUser().getPlayerInventory().getBag().remove(input);
+				}
+				else
+				{
+					System.out.println("This is not a useable item.");
+				}
+			}
+			catch (Exception e)
+			{
+				System.out.println("No such item exist.");
+			}
 		}
-
-		if (i instanceof Potion && i.getName()=="Potion of Solidarity");
+		else
 		{
-			// freeze enemy for two turns
-			System.out.println("You have just used the Potion of Solidarity, this monster cannot attack for 2 turns");
-			p.getPlayerInventory().dropItem(i);
+			System.out.println("You don't have any items to use.");
 		}
-
-		if (i instanceof Potion && i.getName()=="Berserk Potion");
-		{
-			//multiply user's damage by 25% for 3 turns, can only be used in combat
-			p.setPlayaerDamage((int)(p.getPlayaerDamage() * 1.25));
-			System.out.println("You have just used a Bersek Potion, your damage will be multipled by 25% for 3 turns");
-			p.getPlayerInventory().dropItem(i);
-		}
-
-		if (i instanceof SpellScroll && i.getName()=="Acid Cloud");
-		{
-			p.setPlayerMana(p.getPlayerMana() - 20);
-			// 20 mana. Does 0 damage to the target on cast, but inflicts the target wit 
-			// DoT effect that passively inflicts 8 damage per turn for 3 turns.
-			System.out.println("You have just used the Acid Cloud spell, this monster will lose 8 health points per turn for 3 turns");
-			p.getPlayerInventory().dropItem(i);
-		}
-
-		if (i instanceof SpellScroll && i.getName()=="Sonic Boom");
-		{
-			p.setPlayerMana(p.getPlayerMana() - 20);
-			//Does 12 damage to target on cast, but stuns them, leaving them
-			//unable to attack on their next move. Start with this spell.
-			System.out.println("You have just used the Sonic Boom spell, this monster has lost 12 health points and is unable to attack on their next move");
-			p.getPlayerInventory().dropItem(i);;
-		}
-
-		if (i instanceof SpellScroll && i.getName()=="Flood");
-		{
-			p.setPlayerMana(p.getPlayerMana() - 50);
-
-			//Instantly kills whatever enemy is in the room, excluding bosses, to whom
-			//it simply does a heavy 40 damage.
-			System.out.println("You have used the Flood spell, this monster is now dead");
-			p.getPlayerInventory().dropItem(i);
-		}
-
-		if (i instanceof SpellScroll && i.getName()=="Spark");
-		{
-			p.setPlayerMana(p.getPlayerMana() - 10);
-			// Lights up a dark room used for a puzzle
-			System.out.println("You have used the Spark spell, you can now see in this room");
-			p.getPlayerInventory().dropItem(i);
-		}
-		
-		/**
-		if (i instanceof SpellScroll && i.getName()=="Fodder");
-		{
-			p.setPlayerMana(p.getPlayerMana() - 20);
-			// Summons a rain of magical arrows, dealing 15 damage. Always hits first
-			Monster.setHealth(health - 15);
-			System.out.println("You have used the Fodder spell, this monster has lost 15 health points");
-			p.getPlayerInventory().dropItem(i);
-		}
-
-		if (i instanceof SpellScroll && i.getName()=="Fireball");
-		{
-			p.setPlayerMana(p.getPlayerMana() - 20);
-			// Throws a fireball at a target, dealing 18 damage. Start with this spell
-			Monster.setHealth(health - 18);
-			p.getPlayerInventory().dropItem(i);;
-			
-		}
-		**/
 	}
 }

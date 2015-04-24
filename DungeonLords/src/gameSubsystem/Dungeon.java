@@ -1,4 +1,5 @@
 package gameSubsystem;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import roomMonsterPuzzle.Room;
@@ -16,10 +17,14 @@ import roomMonsterPuzzle.Room;
  * 			a player, the rooms, monsters, puzzles and items.
  */
 
-public class Dungeon
+public class Dungeon implements Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Player user;  //the users player object
-	private ArrayList<Room> Dungeon;  //array list of the games rooms
+	private ArrayList<Room> dungeon;  //array list of the games rooms
 	
 	/**
 	 * This is a constructor for the Dungeon class
@@ -30,7 +35,8 @@ public class Dungeon
 	{
 		super();
 		this.user = user;
-		this.Dungeon = dungeon;
+		this.dungeon = dungeon;
+		user.setCurrentRoom(dungeon.get(0));
 	}
 
 	/**
@@ -57,7 +63,7 @@ public class Dungeon
 	 */
 	public ArrayList<Room> getDungeon()
 	{
-		return Dungeon;
+		return dungeon;
 	}
 
 	/**
@@ -66,7 +72,7 @@ public class Dungeon
 	 */
 	public void setDungeon(ArrayList<Room> dungeon)
 	{
-		Dungeon = dungeon;
+		this.dungeon = dungeon;
 	}
 
 }

@@ -1,4 +1,6 @@
 package gameSubsystem;
+import java.io.Serializable;
+
 import roomMonsterPuzzle.Room;
 import Subsystem3.Inventory;
 
@@ -14,8 +16,12 @@ import Subsystem3.Inventory;
  * Purpose: – This class holds all of the stats and attributes of game users
  */
 
-public class Player
+public class Player implements Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String playerName;  //player name
 	private int currentHealth;  //player current health
 	private int maxHealth;  //players max health
