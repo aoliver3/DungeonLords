@@ -1,6 +1,8 @@
 
 package Subsystem3;
 
+import java.util.ArrayList;
+
 /**Class: SpellScroll
  * @author Aaron Harris
  * @version 1.0
@@ -89,6 +91,24 @@ public class Weapon extends Item
 			return false;
 		return true;
 	}
+	
+	public static ArrayList<Weapon> createWeapons()
+	{
+		Weapon w1 = new Weapon ("Adventurer's Sword", "Sword given to adventurers", 12, 1, 5);
+		Weapon w2 = new Weapon ("Bow & Arrow", "Weapon that pierces enemies with a sharp arrow", 12, 1, 7);
+		Weapon w3 = new Weapon ("Warhammer", "A heavy hammer resembling Thor’s Mjolnir", 12, 1, 11);
+		Weapon w4 = new Weapon ("Great Conqueror's Sword", "Beautiful and incredibly sharp ornate sword", 12, 1, 17);
+		
+		ArrayList<Weapon> weapons = new ArrayList<Weapon>();
+		weapons.add(w1);
+		weapons.add(w2);
+		weapons.add(w3);
+		weapons.add(w4);
+		
+		return weapons;
+
+	}
+
 	
 	
 

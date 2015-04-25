@@ -51,12 +51,12 @@ public class Room
 	 */
 	public Item getReward()
 	{
-		if (roomMonster!=null)
+		if (roomMonster!=null && roomMonster.isDefeated() && roomMonster.getLoot()!=null)
 		{
 			System.out.println("You found a " + roomMonster.getLoot().getName());
 			return roomMonster.getLoot();
 		}
-		else if (roomPuzzle!=null)
+		else if (roomPuzzle!=null && roomPuzzle.isSolved() && roomPuzzle.getReward()!=null)
 		{
 			System.out.println("You found a " + roomPuzzle.getReward().getName()
 					);
