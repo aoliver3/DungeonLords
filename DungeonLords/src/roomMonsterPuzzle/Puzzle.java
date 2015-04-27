@@ -70,6 +70,7 @@ public class Puzzle
 	{
 		if(completed)
 		{
+			
 			return reward;
 		}
 		else return null;
@@ -188,8 +189,8 @@ public class Puzzle
 				while(!completed)
 				{
 					System.out.println("Exercise your mind and solve this problem!");
-					num1= (int) (Math.random()*100);
-					num2 = (int) (Math.random()*100);
+					num1= (int) (Math.random()*10);
+					num2 = (int) (Math.random()*50);
 					setSolution(num1*num2);
 					System.out.println("What is " + num1 + " multiplied by " + num2 + "?");
 					try
@@ -230,7 +231,7 @@ public class Puzzle
 					reward = new Potion("Phoenix Statue" , "A mysterious statue with a faint glow", 1,1,1,1);
 					System.out.println("A hidden compartment opens up and a small phoenix statue is revealed, you should take this with you");
 				} else System.out.println("The riddle fades from the pillar...");
-				verrifyAttempt("true");
+				verrifyAttempt(true);
 			}
 		} catch(Exception e)
 		{

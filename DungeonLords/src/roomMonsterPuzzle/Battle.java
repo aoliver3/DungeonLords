@@ -1,7 +1,9 @@
 package roomMonsterPuzzle;
 import java.io.*;
 
+import Subsystem3.Item;
 import Subsystem3.Potion;
+import Subsystem3.Shield;
 import gameSubsystem.*;
 
 public class Battle 
@@ -24,7 +26,8 @@ public class Battle
 
 	private void startBattle()
 	{
-		System.out.println("you have encountered " + enemy.getDescription());
+		System.out.println(enemy.getDescription());
+		System.out.println("you have encountered " + enemy.getName());
 		try
 		{	
 			if(Math.random()>.5)
@@ -62,7 +65,13 @@ public class Battle
 			if(enemy.getHealth()<=0)
 			{
 				System.out.println("You have defeated the " + enemy.getName()); //+ ", " + enemy.getLoot().getName() + " dropped to the ground");
+			}else if (user.getPlayerInventory().getBag().contains(new Potion("Phoenix Statue" , "A mysterious statue with a faint glow", 1,1,1,1)))
+			{
+				user.setCurrentHealth(user.getMaxHealth());
+				System.out.println("The pheonix statue explodes in flames from your inventory and you are revived, simultainiously burning your enemy!");
+				enemy.die();
 			}else System.out.println(enemy.getName() + " has killed you, GAME OVER");
+	
 		}
 		catch(FleeException fe)
 		{
@@ -73,33 +82,75 @@ public class Battle
 	{
 		try
 		{
-			System.out.println("What would you like to do?");
 			String command = "help";
 			while(command.equalsIgnoreCase("help"))
 			{
+				System.out.println("What would you like to do?");
+				System.out.println("1: Attack");
+				System.out.println("2: Use item");
+				System.out.println("3: Flee");
 				command = inFromUser.readLine();
-				if(command.equalsIgnoreCase("attack"))
+				if(command.equalsIgnoreCase("1"))
 				{
-					enemy.takeDamage(user.getPlayaerDamage());
+					enemy.takeDamage(user.getPlayerInventory().getWeaponSlot().getDamage());
 					System.out.println(user.getPlayerName() + " attacks " + enemy.getName() + "!");
-					System.out.println(enemy.getName() + " takes " + user.getPlayaerDamage() + " damage and has " + enemy.getHealth() + " health.");
+					System.out.println(enemy.getName() + " takes " + user.getPlayerInventory().getWeaponSlot().getDamage() + " damage and has " + enemy.getHealth() + " health.");
 				}
-				else if(command.equals("use item"))
+				else if(command.equals("2"))
 				{
 					//game.useItem();
-					System.out.println("Used an item!");
-				} else if(command.equals("flee"))
+					if (user.getPlayerInventory().getBag().size() != 0)
+					{
+						//ask user which item to use
+						System.out.println("What item would you like to use? Enter a number...");
+						int numOfItems = 0;
+						//display list of items
+						for (Item i: user.getPlayerInventory().getBag())
+						{
+							System.out.println("Item " + numOfItems + ": " +i.getName());
+							numOfItems = numOfItems + 1;
+						}
+						String in = inFromUser.readLine();
+						//check user input for valid index number
+						try
+						{
+							int input = Integer.parseInt(in);
+
+							if (input > numOfItems)
+							{
+								System.out.println("No such item exist.");
+							}
+							else if (user.getPlayerInventory().getBag().get(input).getName().equalsIgnoreCase("health potion"))
+							{
+								user.setCurrentHealth(user.getCurrentHealth() + 75);
+								System.out.println("You have used a health potion and regained 75 health.");
+								user.getPlayerInventory().getBag().remove(input);
+							}
+							else if (user.getPlayerInventory().getBag().get(input).getName().equalsIgnoreCase("mana potion"))
+							{
+								user.setPlayerMana(user.getPlayerMana() + 75);
+								System.out.println("You have used a mana potion and regained 75 mana.");
+								user.getPlayerInventory().getBag().remove(input);
+							}
+							else
+							{
+								System.out.println("This is not a useable item.");
+							}
+						}
+						catch (Exception e)
+						{
+							System.out.println("No such item exist.");
+						}
+					}
+					else
+					{
+						System.out.println("You don't have any items to use.");
+					}
+				} else if(command.equals("3"))
 				{
 					System.out.println("You decide to run!");
 					flee();
 					throw new FleeException();
-				}else if (command.equalsIgnoreCase("help"))
-				{
-					System.out.println("Commands");
-					System.out.println("--------");
-					System.out.println("attack : attacks the enemy with your weapon");
-					System.out.println("use item : uses an item that you have");
-					System.out.println("flee : attempts to run from the battle and return to the previous room");
 				}
 				else 
 				{
@@ -135,8 +186,15 @@ public class Battle
 	{
 		if(enemy.getClass().equals(Monster.class))
 		{
-			user.setCurrentHealth(user.getCurrentHealth()-enemy.attack());
-			System.out.println(user.getPlayerName() + " takes " + enemy.getAttack().getDamage() + " damage and has " + user.getCurrentHealth() + " health");
+			int damage = enemy.attack();
+			
+			if (user.getPlayerInventory().getShieldSlot()!=null)
+			{
+				Shield current = user.getPlayerInventory().getShieldSlot();
+				damage = (int) ((enemy.getAttack().getDamage()-current.getFlatBlock())*(1-current.getPercentBlock()));
+			}
+			user.setCurrentHealth(user.getCurrentHealth()-damage);
+			System.out.println(user.getPlayerName() + " takes " + damage + " damage and has " + user.getCurrentHealth() + " health!");
 		}
 		else
 		{

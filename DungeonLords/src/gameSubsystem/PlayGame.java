@@ -63,9 +63,9 @@ public class PlayGame
 		Item w1 = new Weapon ("Adventurer's Sword", "Sword given to adventurers", 12, 1, 5);
 		
 		//add the starting items to players inventory
-		newGame.getGameDungeon().getUser().getPlayerInventory().getBag().add(a1);
-		newGame.getGameDungeon().getUser().getPlayerInventory().getBag().add(s1);
-		newGame.getGameDungeon().getUser().getPlayerInventory().getBag().add(w1);
+		newGame.getGameDungeon().getUser().getPlayerInventory().setArmorSlot((Armor) a1);
+		newGame.getGameDungeon().getUser().getPlayerInventory().setShieldSlot((Shield) s1);
+		newGame.getGameDungeon().getUser().getPlayerInventory().setWeaponSlot((Weapon) w1);
 		newGame.getGameDungeon().getUser().getPlayerInventory().getBag().add(p1);
 		newGame.getGameDungeon().getUser().getPlayerInventory().getBag().add(p1);
 		newGame.getGameDungeon().getUser().getPlayerInventory().getBag().add(p2);
@@ -159,7 +159,7 @@ public class PlayGame
 			catch (Exception e)
 			{
 				System.out.println("This is not a valid command");
-				//System.out.println(e);
+				System.out.println(e);
 			}
 		}
 	}

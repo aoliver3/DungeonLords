@@ -148,10 +148,11 @@ public class Game
 	public void pickUp()
 	{
 		Item i = gameDungeon.getUser().getCurrentRoom().getReward();
-		if (i != null)
+		if (i != null && !gameDungeon.getUser().getCurrentRoom().isLooted())
 		{
 			gameDungeon.getUser().getPlayerInventory().addItem(i);
 			System.out.println(i.getDescription());
+			gameDungeon.getUser().getCurrentRoom().setLooted(true);
 		} 
 		else 
 		{
