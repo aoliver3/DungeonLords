@@ -11,6 +11,7 @@ public class Room
 	private String description;
 	//private ArrayList<Room> exits;
 	private boolean bonfire;
+	boolean looted;
 
 	/**
 	 * default room constructor
@@ -26,6 +27,15 @@ public class Room
 		this.description = description;
 		//this.exits = exits;
 		this.bonfire = bonfire;
+		looted= false;
+	}
+
+	public boolean isLooted() {
+		return looted;
+	}
+
+	public void setLooted(boolean looted) {
+		this.looted = looted;
 	}
 
 	/**
@@ -34,7 +44,6 @@ public class Room
 	 */
 	public void enter(Dungeon d)
 	{
-		System.out.println(description);
 		if(roomMonster!=null && !roomMonster.isDefeated())
 		{
 			new Battle(d, roomMonster);
@@ -51,15 +60,14 @@ public class Room
 	 */
 	public Item getReward()
 	{
-		if (roomMonster!=null)
+		if (roomMonster!=null && roomMonster.isDefeated() && roomMonster.getLoot()!=null)
 		{
 			System.out.println("You found a " + roomMonster.getLoot().getName());
 			return roomMonster.getLoot();
 		}
-		else if (roomPuzzle!=null)
+		else if (roomPuzzle!=null && roomPuzzle.isSolved() && roomPuzzle.getReward()!=null)
 		{
-			System.out.println("You found a " + roomPuzzle.getReward().getName()
-					);
+			System.out.println("You found a " + roomPuzzle.getReward().getName());
 			return roomPuzzle.getReward();
 		}
 		else return null;

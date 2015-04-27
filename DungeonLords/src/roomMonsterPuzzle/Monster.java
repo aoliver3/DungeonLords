@@ -109,7 +109,8 @@ public class Monster
 	{
 		if(defeated)
 		{
-			return loot;
+			Item i = loot;
+			return i;
 		}
 		else return null;
 	}

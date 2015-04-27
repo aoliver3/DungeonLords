@@ -2,6 +2,7 @@ package roomMonsterPuzzle;
 import java.io.*;
 
 import Subsystem3.Potion;
+import Subsystem3.Shield;
 import gameSubsystem.*;
 
 public class Battle 
@@ -135,8 +136,15 @@ public class Battle
 	{
 		if(enemy.getClass().equals(Monster.class))
 		{
-			user.setCurrentHealth(user.getCurrentHealth()-enemy.attack());
-			System.out.println(user.getPlayerName() + " takes " + enemy.getAttack().getDamage() + " damage and has " + user.getCurrentHealth() + " health");
+			int damage = enemy.attack();
+			
+			if (user.getPlayerInventory().getShieldSlot()!=null)
+			{
+				Shield current = user.getPlayerInventory().getShieldSlot();
+				damage = (int) ((enemy.attack()-current.getFlatBlock())*current.getPercentBlock());
+			}
+			user.setCurrentHealth(user.getCurrentHealth()-damage);
+			System.out.println(user.getPlayerName() + " takes " + damage + " damage and has " + user.getCurrentHealth() + " health!");
 		}
 		else
 		{

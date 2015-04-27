@@ -70,6 +70,7 @@ public class Puzzle
 	{
 		if(completed)
 		{
+			
 			return reward;
 		}
 		else return null;
@@ -230,7 +231,7 @@ public class Puzzle
 					reward = new Potion("Phoenix Statue" , "A mysterious statue with a faint glow", 1,1,1,1);
 					System.out.println("A hidden compartment opens up and a small phoenix statue is revealed, you should take this with you");
 				} else System.out.println("The riddle fades from the pillar...");
-				verrifyAttempt("true");
+				verrifyAttempt(true);
 			}
 		} catch(Exception e)
 		{
