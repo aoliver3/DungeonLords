@@ -52,6 +52,7 @@ public class Room
 		{
 			roomPuzzle.startPuzzle(d);
 		}
+		System.out.println(description);
 	}
 
 	/**

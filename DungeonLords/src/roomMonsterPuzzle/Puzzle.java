@@ -189,8 +189,8 @@ public class Puzzle
 				while(!completed)
 				{
 					System.out.println("Exercise your mind and solve this problem!");
-					num1= (int) (Math.random()*100);
-					num2 = (int) (Math.random()*100);
+					num1= (int) (Math.random()*10);
+					num2 = (int) (Math.random()*50);
 					setSolution(num1*num2);
 					System.out.println("What is " + num1 + " multiplied by " + num2 + "?");
 					try
